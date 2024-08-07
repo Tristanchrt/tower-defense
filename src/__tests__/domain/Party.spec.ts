@@ -1,8 +1,7 @@
-import { PartyFixture } from './PartyFixture';
-import {describe, expect, test } from 'vitest'
+import { PartyFixture } from './PartyFixture'
+import { describe, expect, test } from 'vitest'
 
 describe('Party', () => {
-
   test('should init Party object', () => {
     const partyPlayersToPlay = PartyFixture.partyPlayersToPlayRoundOne()
     expect(partyPlayersToPlay.getBoard()).toStrictEqual(PartyFixture.board())
@@ -16,7 +15,10 @@ describe('Party', () => {
 
   test('Should PartyPlayersToPlay change to PartyMonsterToPlay', () => {
     const partyPlayersToPlay = PartyFixture.partyPlayersToPlayRoundOne()
-    const partyMonstersToPlay = partyPlayersToPlay.toMonsterToPlay([PartyFixture.player1(), PartyFixture.player2()])
+    const partyMonstersToPlay = partyPlayersToPlay.toMonsterToPlay([
+      PartyFixture.player1(),
+      PartyFixture.player2()
+    ])
     expect(partyMonstersToPlay).toStrictEqual(PartyFixture.partyMonstersToPlayRoundTwo())
   })
 
@@ -32,5 +34,4 @@ describe('Party', () => {
     const player = partyPlayersToPlay.getPlayerToPlay()
     expect(player).toStrictEqual(PartyFixture.player1())
   })
-
-});
+})

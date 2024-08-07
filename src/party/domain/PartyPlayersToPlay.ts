@@ -1,14 +1,19 @@
-import { Board } from "./Board"
-import type { Party } from "./Party"
-import { PartyMonstersToPlay } from "./PartyMonsterToPlay"
-import { Player } from "./Player"
+import { Board } from './Board'
+import type { Party } from './Party'
+import { PartyMonstersToPlay } from './PartyMonsterToPlay'
+import { Player } from './Player'
 
 export class PartyPlayersToPlay implements Party {
   id: string
   private playersPlayed: Player[]
   private readonly playersToPlay: Player[]
 
-  constructor(id: string, private board: Board, private players: Player[], private round: number) {
+  constructor(
+    id: string,
+    private board: Board,
+    private players: Player[],
+    private round: number
+  ) {
     this.id = id
     this.board = board
     this.players = players

@@ -1,21 +1,21 @@
-import type { Tower } from "./Tower";
+import type { Tower } from './Tower'
 
 export class Player {
-    // private towers: Tower[] = [] 
+  // private towers: Tower[] = []
 
-    constructor(private name: string){
-        this.name = name
-    }
+  constructor(private name: string) {
+    this.name = name
+  }
 
-    public getName(): string {
-        return this.name
-    }
+  public getName(): string {
+    return this.name
+  }
 
-    // public getTowers() {
-    //     return this.towers
-    // }
+  // public getTowers() {
+  //     return this.towers
+  // }
 
-    // public addTower(tower: Tower): void {
-    //     this.towers.push(tower)
-    // }
+  // public addTower(tower: Tower): void {
+  //     this.towers.push(tower)
+  // }
 }

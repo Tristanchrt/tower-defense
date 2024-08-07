@@ -13,5 +13,4 @@ export class PartiesApplicationService {
   public create(partyToCreate: PartyToCreate): PartyCreated {
     return this.partyHandler.createParty(partyToCreate)
   }
-
 }

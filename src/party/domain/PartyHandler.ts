@@ -3,7 +3,6 @@ import type { PartiesRepository } from '@/party/domain/PartiesRepository'
 import type { PartyCreated } from '@/party/domain/PartyCreated'
 
 export class PartyHandler {
-
   constructor(private partiesRepository: PartiesRepository) {}
 
   public createParty(partyToCreate: PartyToCreate): PartyCreated {
