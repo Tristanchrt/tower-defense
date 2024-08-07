@@ -10,20 +10,25 @@ export class PartyFixture {
   static board(): Board {
     return new Board(10, 10)
   }
+
+  private static idParty(): string {
+    return "Q6ldn6uAS6EB"
+  }
+
   public static partyPlayersToPlayRoundOne(): PartyPlayersToPlay {
-    return new PartyPlayersToPlay(PartyFixture.board(), [this.player1(), this.player2()], 1)
+    return new PartyPlayersToPlay(this.idParty(), PartyFixture.board(), [this.player1(), this.player2()], 1)
   }
 
   public static partyMonstersToPlayRoundTwo(): PartyMonstersToPlay {
-    return new PartyMonstersToPlay(PartyFixture.board(), [this.player1(), this.player2()], 2)
+    return new PartyMonstersToPlay(this.idParty(), PartyFixture.board(), [this.player1(), this.player2()], 2)
   }
 
   public static partyPlayersToPlayRoundTwo(): PartyPlayersToPlay {
-    return new PartyPlayersToPlay(PartyFixture.board(), [this.player1(), this.player2()], 2)
+    return new PartyPlayersToPlay(this.idParty(), PartyFixture.board(), [this.player1(), this.player2()], 2)
   }
 
   public static partyCreated(): PartyCreated {
-    return new PartyCreated(PartyFixture.board(), [this.player1(), this.player2()])
+    return new PartyCreated(this.idParty(), PartyFixture.board(), [this.player1(), this.player2()])
   }
 
   public static player1(): Player {
@@ -39,6 +44,6 @@ export class PartyFixture {
   }
 
   public static partyToCreate() {
-    return new PartyToCreate(this.board(), [this.player1(), this.player2()])
+    return new PartyToCreate(this.idParty(), this.board(), [this.player1(), this.player2()])
   }
 }

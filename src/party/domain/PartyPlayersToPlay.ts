@@ -4,10 +4,12 @@ import { PartyMonstersToPlay } from "./PartyMonsterToPlay"
 import { Player } from "./Player"
 
 export class PartyPlayersToPlay implements Party {
+  id: string
   private playersPlayed: Player[]
-  private playersToPlay: Player[]
+  private readonly playersToPlay: Player[]
 
-  constructor(private board: Board, private players: Player[], private round: number) {
+  constructor(id: string, private board: Board, private players: Player[], private round: number) {
+    this.id = id
     this.board = board
     this.players = players
     this.round = round
@@ -24,7 +26,7 @@ export class PartyPlayersToPlay implements Party {
   }
 
   public toMonsterToPlay(players: Player[]): PartyMonstersToPlay {
-    return new PartyMonstersToPlay(this.board, players, this.round + 1)
+    return new PartyMonstersToPlay(this.id, this.board, players, this.round + 1)
   }
 
   public getPlayerToPlay(): Player {

@@ -8,7 +8,7 @@ describe('Party management', () => {
       .should('be.visible')
       .click();
 
-    cy.contains('h1', 'Party')
+    cy.contains('h1', 'Party created')
 
     const numberOfElements = 6 * 12;
     cy.get('span.cell')
