@@ -2,13 +2,13 @@ import type { PartiesRepository } from '@/party/domain/PartiesRepository'
 import type { Party } from '@/party/domain/Party'
 
 export class RestPartiesRepository implements PartiesRepository {
-  private readonly parties: Party[] = []
+  private party: Party = {} as Party
 
-  public getParties(): Party[] {
-    return this.parties
+  public getParty(): Party {
+    return this.party
   }
 
   public saveParty(party: Party): void {
-    this.parties.push(party)
+    this.party = party
   }
 }

@@ -1,4 +1,3 @@
-import { PartyHandler } from '@/party/domain/PartyHandler';
 import { PartyFixture } from './PartyFixture';
 import {describe, expect, test } from 'vitest'
 
@@ -25,6 +24,13 @@ describe('Party', () => {
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwo()
     const partyPlayersToPlay = partyMonstersToPlay.toPlayersToPlay()
     expect(partyPlayersToPlay).toStrictEqual(PartyFixture.partyPlayersToPlayRoundTwo())
+  })
+
+  test('Should be player 1 to player', () => {
+    const partyCreated = PartyFixture.partyCreated()
+    const partyPlayersToPlay = partyCreated.toPlayersToPlay()
+    const player = partyPlayersToPlay.getPlayerToPlay()
+    expect(player).toStrictEqual(PartyFixture.player1())
   })
 
 });
