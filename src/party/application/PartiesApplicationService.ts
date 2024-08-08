@@ -6,8 +6,8 @@ import { RestPartiesRepository } from '@/party/infrastructure/secondary/RestPart
 export class PartiesApplicationService {
   private partyHandler: PartyHandler
 
-  constructor() {
-    this.partyHandler = new PartyHandler(new RestPartiesRepository())
+  constructor(private restPartiesRepository: RestPartiesRepository) {
+    this.partyHandler = new PartyHandler(restPartiesRepository)
   }
 
   public create(partyToCreate: PartyToCreate): PartyCreated {

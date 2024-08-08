@@ -36,4 +36,7 @@
 //   }
 // }
 
-export {}
+Cypress.Commands.add('login', (user: string) => {
+  cy.log(`Logging in as ${user}`);
+})
+

@@ -13,29 +13,30 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { inject, ref } from 'vue'
 import { Board } from '@/party/domain/Board'
 import { Player } from '@/party/domain/Player'
 import type { Party } from '@/party/domain/Party'
 import CreatePartyCard from '@/party/infrastructure/primary/components/CreatePartyCard.vue'
 import { PartyToCreate } from '@/party/domain/PartyToCreate'
-import { PartiesApplicationService } from '@/party/application/PartiesApplicationService'
 import PartyList from '@/party/infrastructure/primary/components/PartyList.vue'
+import { PartiesApplicationService } from '@/party/application/PartiesApplicationService'
 
 const parties = ref<Party[]>([])
+const partyHandler = inject('partyApplicationService') as PartiesApplicationService
 
 function generateTimestampBasedString(): string {
   return (Math.floor(Math.random() * (10000 - 10)) + 10000).toString()
 }
 
-const partyToCreate = () => new PartyToCreate(generateTimestampBasedString(), new Board(6, 12), [
-  new Player('Player 1'),
-  new Player('Player 2')
-])
+const partyToCreate = () =>
+  new PartyToCreate(generateTimestampBasedString(), new Board(6, 12), [
+    new Player('Player 1'),
+    new Player('Player 2')
+  ])
 
 const createParty = () => {
-  const partiesApplicationService = new PartiesApplicationService()
-  const partyCreated = partiesApplicationService.create(partyToCreate())
+  const partyCreated = partyHandler.create(partyToCreate())
   parties.value?.push(partyCreated)
 }
 </script>
