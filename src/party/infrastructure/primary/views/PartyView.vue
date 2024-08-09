@@ -2,7 +2,7 @@
   <div class="parties">
     <div class="parties-list">
       <h1>List of parties</h1>
-      <PartyList v-if="parties.length > 0" :parties="parties" />
+      <PartyList v-if="parties && parties.length > 0" :parties="parties" @start-party="startParty($event)"/>
       <span v-else>Empty list</span>
     </div>
     <div class="party-to-create">
@@ -21,13 +21,12 @@ import CreatePartyCard from '@/party/infrastructure/primary/components/CreatePar
 import { PartyToCreate } from '@/party/domain/PartyToCreate'
 import PartyList from '@/party/infrastructure/primary/components/PartyList.vue'
 import { PartiesApplicationService } from '@/party/application/PartiesApplicationService'
+import type { PartyCreated } from '@/party/domain/PartyCreated'
 
 const parties = ref<Party[]>([])
 const partyHandler = inject('partyApplicationService') as PartiesApplicationService
 
-function generateTimestampBasedString(): string {
-  return (Math.floor(Math.random() * (10000 - 10)) + 10000).toString()
-}
+const generateTimestampBasedString = (): string => (Math.floor(Math.random() * (10000 - 10)) + 10000).toString()
 
 const partyToCreate = () =>
   new PartyToCreate(generateTimestampBasedString(), new Board(6, 12), [
@@ -37,8 +36,16 @@ const partyToCreate = () =>
 
 const createParty = () => {
   const partyCreated = partyHandler.create(partyToCreate())
-  parties.value?.push(partyCreated)
+  parties.value.push(partyCreated)
 }
+
+const startParty = (id: string) => {
+  const party = parties.value.find((party: Party) => party.id === id);
+  const partyPlayersToPlay = (party as PartyCreated).toPlayersToPlay()
+  parties.value = parties.value.filter((party: Party) => party.id !== id);
+  parties.value.push(partyPlayersToPlay)
+};
+
 </script>
 
 <style scoped>
