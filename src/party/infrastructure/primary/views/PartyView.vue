@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, ref } from 'vue'
+import { inject, onMounted, ref } from 'vue'
 import { Board } from '@/party/domain/Board'
 import { Player } from '@/party/domain/Player'
 import type { Party } from '@/party/domain/Party'
@@ -29,6 +29,10 @@ import type { PartyCreated } from '@/party/domain/PartyCreated'
 
 const parties = ref<Party[]>([])
 const partyHandler = inject('partyApplicationService') as PartiesApplicationService
+
+onMounted(() => {
+  parties.value = partyHandler.getParties()
+})
 
 const generateTimestampBasedString = (): string =>
   (Math.floor(Math.random() * (10000 - 10)) + 10000).toString()
