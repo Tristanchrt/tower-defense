@@ -34,7 +34,7 @@ const partyStatus = (party: Party) => {
 
 const goToParty = (party: Party) => {
   if (party instanceof PartyCreated) {
-    if(confirm("Do you want to start the party")){
+    if (confirm('Do you want to start the party')) {
       emit('start-party', party.id)
     }
   }

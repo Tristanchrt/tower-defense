@@ -2,13 +2,18 @@ import type { PartiesRepository } from '@/party/domain/PartiesRepository'
 import type { Party } from '@/party/domain/Party'
 
 export class RestPartiesRepository implements PartiesRepository {
-  private party: Party = {} as Party
+  private parties: Party[] = [] as Party[]
 
-  public getParty(): Party {
-    return this.party
+  public getParties(): Party[] {
+    return this.parties
   }
 
-  public saveParty(party: Party): void {
-    this.party = party
+  public saveParty(partyToSave: Party): void {
+    const index = this.parties.findIndex((p) => p.id === partyToSave.id)
+    if (index === -1) {
+      this.parties.push(partyToSave)
+    } else {
+      this.parties[index] = partyToSave
+    }
   }
 }
