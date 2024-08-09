@@ -7,13 +7,13 @@ describe('Party', () => {
     expect(partyPlayersToPlay.getBoard()).toStrictEqual(PartyFixture.board())
   })
 
-  test('Should PartyCreated change to PartyPlayersToPlay', () => {
+  test('Should PartyCreated change to PartyPlayersToPlay.vue', () => {
     const partyCreated = PartyFixture.partyCreated()
     const partyPlayersToPlay = partyCreated.toPlayersToPlay()
     expect(partyPlayersToPlay).toStrictEqual(PartyFixture.partyPlayersToPlayRoundOne())
   })
 
-  test('Should PartyPlayersToPlay change to PartyMonsterToPlay', () => {
+  test('Should PartyPlayersToPlay.vue change to PartyMonsterToPlay', () => {
     const partyPlayersToPlay = PartyFixture.partyPlayersToPlayRoundOne()
     const partyMonstersToPlay = partyPlayersToPlay.toMonsterToPlay([
       PartyFixture.player1(),
@@ -22,7 +22,7 @@ describe('Party', () => {
     expect(partyMonstersToPlay).toStrictEqual(PartyFixture.partyMonstersToPlayRoundTwo())
   })
 
-  test('Should PartyMonsterToPlay change to PartyPlayersToPlay', () => {
+  test('Should PartyMonsterToPlay change to PartyPlayersToPlay.vue', () => {
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwo()
     const partyPlayersToPlay = partyMonstersToPlay.toPlayersToPlay()
     expect(partyPlayersToPlay).toStrictEqual(PartyFixture.partyPlayersToPlayRoundTwo())

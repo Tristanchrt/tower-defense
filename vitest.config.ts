@@ -19,7 +19,7 @@ export default mergeConfig(
           '**/cypress/**',
           '.eslintrc.cjs',
           '**/router/**',
-          'main.ts'
+          '**/main.ts/**'
         ]
       },
     }

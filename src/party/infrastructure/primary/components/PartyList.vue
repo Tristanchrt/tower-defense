@@ -13,6 +13,7 @@ import { computed, type PropType } from 'vue'
 import { PartyCreated } from '@/party/domain/PartyCreated'
 import { PartyStatus } from '@/party/domain/PartyStatus'
 import { PartyPlayersToPlay } from '@/party/domain/PartyPlayersToPlay'
+import { useRouter } from 'vue-router'
 
 const props = defineProps({
   parties: {
@@ -21,8 +22,10 @@ const props = defineProps({
   }
 })
 
+const router = useRouter()
+
 const sortedParties = computed(() => {
-  return props.parties.sort((a, b) => parseInt(a.id) - parseInt(b.id))
+  return [...props.parties].sort((a, b) => parseInt(a.id) - parseInt(b.id))
 })
 
 const emit = defineEmits(['start-party'])
@@ -37,6 +40,8 @@ const goToParty = (party: Party) => {
     if (confirm('Do you want to start the party')) {
       emit('start-party', party.id)
     }
+  }else if(party instanceof PartyPlayersToPlay) {
+    router.push({ name: 'party', params: { id: party.id } })
   }
 }
 </script>

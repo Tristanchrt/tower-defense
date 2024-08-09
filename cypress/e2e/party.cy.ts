@@ -34,5 +34,18 @@ describe('Party management', () => {
       cy.get(':nth-child(2) > button').click()
     })
     cy.get('span.party-status').should('contain.text', 'PLAYERS_TO_PLAY');
+
+    cy.get('span.party-id').then(function($elem) {
+      cy.get('div.party').first().click()
+      cy.url().should('include','/parties/'+$elem.text())
+      cy.contains('h1', 'Party #'+$elem.text())
+      cy.contains('h3', 'Round #1')
+      // const numberOfElements = 6 * 12;
+      // cy.get('span.cell')
+      //   .should('have.length', numberOfElements)
+      //   .first()
+      //   .should('have.text', '.')
+      //   .and('be.visible');
+    })
   })
 })
