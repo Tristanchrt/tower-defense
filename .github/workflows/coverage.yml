@@ -13,6 +13,8 @@ jobs:
       - uses: pnpm/action-setup@v4
         with:
           version: 8
+      - test:
+        run: ls -l
       - name: Install dependencies
         run: pnpm install
       - name: Test and coverage
