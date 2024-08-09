@@ -21,6 +21,7 @@ describe('Board', () => {
   })
 
   // TODO: throw error
+  // efdfd
   // test('Should not place tower when x or y are not in the matrix area', () => {
   //     const board = PartyFixture.board()
   //     const towerToAdd = PartyFixture.towerToAddPlayer1(100, 1)
