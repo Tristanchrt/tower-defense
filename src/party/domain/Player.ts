@@ -1,5 +1,5 @@
 export class Player {
-  constructor(private name: string) {
+  constructor(private readonly name: string) {
     this.name = name
   }
 
