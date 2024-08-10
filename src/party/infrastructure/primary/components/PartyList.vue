@@ -40,7 +40,7 @@ const goToParty = (party: Party) => {
     if (confirm('Do you want to start the party')) {
       emit('start-party', party as PartyCreated)
     }
-  }else if(party instanceof PartyPlayersToPlay) {
+  } else if (party instanceof PartyPlayersToPlay) {
     router.push({ name: 'party', params: { id: party.id } })
   }
 }

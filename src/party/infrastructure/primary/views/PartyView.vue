@@ -2,11 +2,7 @@
   <div class="parties">
     <div class="parties-list">
       <h1>List of parties</h1>
-      <PartyList
-        v-if="parties && parties.length > 0"
-        :parties="parties"
-        @start-party="startParty($event)"
-      />
+      <PartyList v-if="hasParties" :parties="parties" @start-party="startParty($event)" />
       <span v-else>Empty list</span>
     </div>
     <div class="party-to-create">
@@ -17,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, onMounted, ref } from 'vue'
+import { computed, inject, ref } from 'vue'
 import { Board } from '@/party/domain/Board'
 import { Player } from '@/party/domain/Player'
 import type { Party } from '@/party/domain/Party'
@@ -30,11 +26,11 @@ import type { PartyCreated } from '@/party/domain/PartyCreated'
 const parties = ref<Party[]>([])
 const partyHandler = inject('partyApplicationService') as PartiesApplicationService
 
-onMounted(() => {
-  parties.value = partyHandler.getParties()
-})
+const hasParties = computed(() => parties.value.length > 0)
 
-const generateTimestampBasedString = (): string =>
+const fetchParties = () => (parties.value = partyHandler.getParties())
+
+const generateTimestampBasedString = () =>
   (Math.floor(Math.random() * (10000 - 10)) + 10000).toString()
 
 const partyToCreate = () =>
@@ -53,6 +49,8 @@ const startParty = (party: PartyCreated) => {
   parties.value = parties.value.filter((party: Party) => party.id !== partyPlayersToPlay.id)
   parties.value.push(partyPlayersToPlay)
 }
+
+fetchParties()
 </script>
 
 <style scoped>

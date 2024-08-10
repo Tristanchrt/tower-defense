@@ -2,7 +2,7 @@
   <div class="party-players-to-play">
     <h1>Party #{{ partyId }}</h1>
     <h3>Round #1</h3>
-    <BoardCard :board="party!.getBoard()" v-if="party"/>
+    <BoardCard :board="party!.getBoard()" v-if="party" />
   </div>
 </template>
 

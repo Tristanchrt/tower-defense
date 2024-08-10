@@ -6,9 +6,11 @@ import type { RestPartiesRepository } from '@/party/infrastructure/secondary/Res
 describe('Parties application service test', () => {
   test('Should create a party', () => {
     const mockRestPartiesRepository = {
-      saveParty: vi.fn(),
+      saveParty: vi.fn()
     }
-    const partiesApplicationService = new PartiesApplicationService(mockRestPartiesRepository as unknown as RestPartiesRepository)
+    const partiesApplicationService = new PartiesApplicationService(
+      mockRestPartiesRepository as unknown as RestPartiesRepository
+    )
 
     const createParty = partiesApplicationService.create(PartyFixture.partyToCreate())
 
@@ -19,9 +21,11 @@ describe('Parties application service test', () => {
     const party = PartyFixture.partyCreated()
 
     const mockRestPartiesRepository = {
-      getParties: vi.fn().mockReturnValue([party]),
+      getParties: vi.fn().mockReturnValue([party])
     }
-    const partiesApplicationService = new PartiesApplicationService(mockRestPartiesRepository as unknown as RestPartiesRepository)
+    const partiesApplicationService = new PartiesApplicationService(
+      mockRestPartiesRepository as unknown as RestPartiesRepository
+    )
 
     const parties = partiesApplicationService.getParties()
 
@@ -31,14 +35,17 @@ describe('Parties application service test', () => {
   test('Should transform partyCreated to PartyPlayersToPlayer', () => {
     const mockRestPartiesRepository = {
       saveParty: vi.fn(),
-      withPlayersToPlay: vi.fn(),
+      withPlayersToPlay: vi.fn()
     }
 
-    const partiesApplicationService = new PartiesApplicationService(mockRestPartiesRepository as unknown as RestPartiesRepository)
+    const partiesApplicationService = new PartiesApplicationService(
+      mockRestPartiesRepository as unknown as RestPartiesRepository
+    )
 
-    const partyPlayersToPlay = partiesApplicationService.withPlayersToPlay(PartyFixture.partyCreated())
+    const partyPlayersToPlay = partiesApplicationService.withPlayersToPlay(
+      PartyFixture.partyCreated()
+    )
 
     expect(partyPlayersToPlay).toEqual(PartyFixture.partyPlayersToPlayRoundOne())
   })
-
 })

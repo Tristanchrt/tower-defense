@@ -16,12 +16,11 @@ describe('Party Handler', () => {
     expect(createdParty).toStrictEqual(PartyFixture.partyCreated())
   })
 
-  test('Should get parties',  () => {
-
+  test('Should get parties', () => {
     const party = PartyFixture.partyCreated()
 
     const mockPartiesRepository = {
-      getParties: vi.fn().mockReturnValue([party]),
+      getParties: vi.fn().mockReturnValue([party])
     }
     const partyHandler = new PartyHandler(mockPartiesRepository as unknown as PartiesRepository)
 
@@ -31,7 +30,6 @@ describe('Party Handler', () => {
   })
 
   test('Should transform partyCreated to PartyPlayersToPlayer', () => {
-
     const mockPartiesRepository = {
       saveParty: vi.fn(),
       withPlayersToPlay: vi.fn()
@@ -42,5 +40,4 @@ describe('Party Handler', () => {
 
     expect(partyPlayersToPlayer).toStrictEqual(PartyFixture.partyPlayersToPlayRoundOne())
   })
-
 })

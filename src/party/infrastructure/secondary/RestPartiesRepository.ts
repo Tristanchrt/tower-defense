@@ -1,7 +1,6 @@
 import type { PartiesRepository } from '@/party/domain/PartiesRepository'
 import type { Party } from '@/party/domain/Party'
 
-
 export class RestPartiesRepository implements PartiesRepository {
   private parties: Record<string, Party> = {}
 

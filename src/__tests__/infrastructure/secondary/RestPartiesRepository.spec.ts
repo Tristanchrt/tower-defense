@@ -24,5 +24,4 @@ describe('RestPartiesRepository', () => {
     const party = rest.getPartyById(partyCreated.id)
     expect(party).toEqual(partyCreated)
   })
-
 })
