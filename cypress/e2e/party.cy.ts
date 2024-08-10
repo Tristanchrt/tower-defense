@@ -25,7 +25,7 @@ describe('Party management', () => {
 
     cy.get('span.party-id').should('have.length', 2);
   })
-  it('Should start a party and display an empty board', () => {
+  it('Should start a party and display an empty board with the list of players', () => {
     cy.visit('/parties')
     createParty()
     cy.get('div.party').first().click()
@@ -40,6 +40,9 @@ describe('Party management', () => {
       cy.url().should('include','/parties/'+$elem.text())
       cy.contains('h1', 'Party #'+$elem.text())
       cy.contains('h3', 'Round #1')
+
+      cy.get('span.player').first().should('have.text', 'Player 1')
+      cy.get('span.player').last().should('have.text', 'Player 2')
 
       const numberOfElements = 6 * 12;
       cy.get('span.cell')

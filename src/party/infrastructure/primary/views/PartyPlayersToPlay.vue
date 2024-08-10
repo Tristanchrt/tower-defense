@@ -1,8 +1,13 @@
 <template>
-  <div class="party-players-to-play">
-    <h1>Party #{{ partyId }}</h1>
-    <h3>Round #1</h3>
-    <BoardCard :board="party!.getBoard()" v-if="party" />
+  <div class="party-players-to-play">`
+    <div class="party-board">
+      <h1>Party #{{ partyId }}</h1>
+      <h3>Round #1</h3>
+      <BoardCard :board="party!.getBoard()" v-if="party" />
+    </div>
+    <div class="players" v-if="party">
+      <span class="player" :key="player.getName()" v-for="player in party!.getPlayers()">{{ player.getName() }}</span>
+    </div>
   </div>
 </template>
 
@@ -22,14 +27,27 @@ onMounted(() => {
   const route = useRoute()
   partyId.value = (route.params.id as string | undefined) ?? null
   party.value = partyHandler.getParties()[0]
+  console.log(party.value)
 })
 </script>
 
 <style scoped>
 .party-players-to-play {
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+.players {
+  margin-left: 3em;
+  display: flex;
+  flex-direction: column;
+}
+.player {
+  margin: 10px;
+  padding: 8px;
+ }
+.player:hover {
+  background-color: grey;
+  margin: 10px;
 }
 </style>
