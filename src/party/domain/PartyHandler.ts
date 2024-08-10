@@ -2,6 +2,7 @@ import type { PartyToCreate } from '@/party/domain/PartyToCreate'
 import type { PartiesRepository } from '@/party/domain/PartiesRepository'
 import type { PartyCreated } from '@/party/domain/PartyCreated'
 import type { Party } from '@/party/domain/Party'
+import type { PartyPlayersToPlay } from '@/party/domain/PartyPlayersToPlay'
 
 export class PartyHandler {
   constructor(private partiesRepository: PartiesRepository) {}
@@ -14,5 +15,11 @@ export class PartyHandler {
 
   public getParties(): Party[] {
     return this.partiesRepository.getParties()
+  }
+
+  public withPlayersToPlay(party: PartyCreated): PartyPlayersToPlay {
+    const partyPlayerToPlay = party.toPlayersToPlay()
+    this.partiesRepository.saveParty(partyPlayerToPlay)
+    return partyPlayerToPlay
   }
 }

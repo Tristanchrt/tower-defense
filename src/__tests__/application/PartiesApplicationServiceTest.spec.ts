@@ -28,4 +28,17 @@ describe('Parties application service test', () => {
     expect(parties).toStrictEqual([party])
   })
 
+  test('Should transform partyCreated to PartyPlayersToPlayer', () => {
+    const mockRestPartiesRepository = {
+      saveParty: vi.fn(),
+      withPlayersToPlay: vi.fn(),
+    }
+
+    const partiesApplicationService = new PartiesApplicationService(mockRestPartiesRepository as unknown as RestPartiesRepository)
+
+    const partyPlayersToPlay = partiesApplicationService.withPlayersToPlay(PartyFixture.partyCreated())
+
+    expect(partyPlayersToPlay).toEqual(PartyFixture.partyPlayersToPlayRoundOne())
+  })
+
 })

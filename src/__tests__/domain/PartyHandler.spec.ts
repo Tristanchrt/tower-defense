@@ -13,7 +13,7 @@ describe('Party Handler', () => {
     const createdParty = partyHandler.createParty(PartyFixture.partyToCreate())
 
     expect(mockPartiesRepository.saveParty).toHaveBeenCalledWith(createdParty)
-    expect(createdParty).toEqual(PartyFixture.partyCreated())
+    expect(createdParty).toStrictEqual(PartyFixture.partyCreated())
   })
 
   test('Should get parties',  () => {
@@ -29,4 +29,18 @@ describe('Party Handler', () => {
     expect(mockPartiesRepository.getParties).toHaveBeenCalled()
     expect(parties).toStrictEqual([party])
   })
+
+  test('Should transform partyCreated to PartyPlayersToPlayer', () => {
+
+    const mockPartiesRepository = {
+      saveParty: vi.fn(),
+      withPlayersToPlay: vi.fn()
+    }
+    const partyHandler = new PartyHandler(mockPartiesRepository as unknown as PartiesRepository)
+
+    const partyPlayersToPlayer = partyHandler.withPlayersToPlay(PartyFixture.partyCreated())
+
+    expect(partyPlayersToPlayer).toStrictEqual(PartyFixture.partyPlayersToPlayRoundOne())
+  })
+
 })

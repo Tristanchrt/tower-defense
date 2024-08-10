@@ -48,10 +48,9 @@ const createParty = () => {
   parties.value.push(partyCreated)
 }
 
-const startParty = (id: string) => {
-  const party = parties.value.find((party: Party) => party.id === id)
-  const partyPlayersToPlay = (party as PartyCreated).toPlayersToPlay()
-  parties.value = parties.value.filter((party: Party) => party.id !== id)
+const startParty = (party: PartyCreated) => {
+  const partyPlayersToPlay = partyHandler.withPlayersToPlay(party)
+  parties.value = parties.value.filter((party: Party) => party.id !== partyPlayersToPlay.id)
   parties.value.push(partyPlayersToPlay)
 }
 </script>

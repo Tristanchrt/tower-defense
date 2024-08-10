@@ -24,3 +24,12 @@ onMounted(() => {
   party.value = partyHandler.getParties()[0]
 })
 </script>
+
+<style scoped>
+.party-players-to-play {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+</style>
