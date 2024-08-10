@@ -1,7 +1,7 @@
-import type { Board } from './Board'
+import  { type Board } from './Board'
 import type { Party } from './Party'
 import { PartyPlayersToPlay } from './PartyPlayersToPlay'
-import type { Player } from './Player'
+import  { type Player } from './Player'
 
 export class PartyMonstersToPlay implements Party {
   id: string

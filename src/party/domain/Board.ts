@@ -1,6 +1,6 @@
 import type { Cell } from './Cell'
 import { Floor } from './Floor'
-import type { Tower } from './Tower'
+import { Tower } from './Tower'
 
 export class Board {
   matrix: Cell[][]
@@ -52,5 +52,11 @@ export class Board {
 
   public getMatrix(): Cell[][] {
     return this.matrix
+  }
+
+  public getTowers(): Tower[] {
+    return this.matrix
+      .flatMap(row => row)
+      .filter(cell => cell instanceof Tower) as Tower[];
   }
 }

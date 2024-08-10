@@ -25,4 +25,11 @@ describe('Board', () => {
       const tower = PartyFixture.towerToAddPlayer1(100, 100)
       expect(() => board.addTower(tower)).toThrowError('Not in the matrix area')
   })
+
+  test('Should get towers', () => {
+    const board = PartyFixture.board()
+    const tower = PartyFixture.towerToAddPlayer1(2, 2)
+    board.addTower(tower)
+    expect(board.getTowers()[0]).toStrictEqual(tower)
+  })
 })

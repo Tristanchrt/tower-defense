@@ -2,6 +2,7 @@ import { Board } from './Board'
 import type { Party } from './Party'
 import { PartyMonstersToPlay } from './PartyMonsterToPlay'
 import { Player } from './Player'
+import { type Tower } from '@/party/domain/Tower'
 
 export class PartyPlayersToPlay implements Party {
   id: string
@@ -34,5 +35,13 @@ export class PartyPlayersToPlay implements Party {
 
   public getPlayerToPlay(): Player {
     return this.playersToPlay[0]
+  }
+
+  public getTowers(): Tower[] {
+    return this.getBoard().getTowers()
+  }
+
+  public play(tower: Tower) {
+    this.board.addTower(tower)
   }
 }

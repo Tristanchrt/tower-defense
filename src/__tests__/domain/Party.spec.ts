@@ -34,4 +34,11 @@ describe('Party', () => {
     const player = partyPlayersToPlay.getPlayerToPlay()
     expect(player).toStrictEqual(PartyFixture.player1())
   })
+
+  test('Should add tower when player 1 is playing', () => {
+    const partyPlayersToPlay = PartyFixture.partyPlayersToPlayRoundOne()
+    const tower = PartyFixture.towerToAddPlayer1(1,1)
+    partyPlayersToPlay.play(tower)
+    expect(partyPlayersToPlay.getTowers()[0]).toStrictEqual(tower)
+  })
 })
