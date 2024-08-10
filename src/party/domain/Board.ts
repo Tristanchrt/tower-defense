@@ -36,7 +36,7 @@ export class Board {
 
   public addTower(tower: Tower): void {
     if (!this.isInMatrix(tower.x, tower.y)) {
-      throw 'Not in the matrix area'
+      throw new Error('Not in the matrix area')
     }
     this.matrix[tower.x][tower.y] = tower
   }

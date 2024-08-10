@@ -1,6 +1,14 @@
 <template>
   <div class="players">
-    <span class="player" :key="player.getName()" v-for="player in players">{{ player.getName() }}</span>
+    <div class="player" :key="player.getName()" v-for="player in players">
+      <span class="player-name">
+        {{ player.getName() }}
+      </span>
+      <span> - </span>
+      <span class="player-turn">
+        {{ isPlaying(player) }}
+      </span>
+    </div>
   </div>
 </template>
 
@@ -9,12 +17,23 @@
 import type { PropType } from 'vue'
 import type { Player } from '@/party/domain/Player'
 
-defineProps({
+const props = defineProps({
   players: {
     type: Array as PropType<Player[]>,
     required: true
+  },
+  playerTurn: {
+    type: Object as PropType<Player>,
+    required: true
   }
 })
+
+const isPlaying = (player: Player) => {
+  if (props.playerTurn.getName() === player.getName()) {
+    return 'Y'
+  }
+  return "N"
+}
 
 </script>
 

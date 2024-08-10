@@ -6,6 +6,17 @@ describe('Party management', () => {
     .should('be.visible')
     .click();
 
+  const startParty = () => {
+    cy.get('div.party').first().click()
+    cy.on('window:alert',(t)=> {
+      expect(t).to.contains('Do you want to start the party?');
+      cy.get(':nth-child(2) > button').click()
+    })
+    cy.get('span.party-id').then(function($elem) {
+      cy.get('div.party').first().click()
+    })
+  }
+
   it('Should create a party and verify it appears in the list with correct details', () => {
     cy.visit('/parties')
 
@@ -41,8 +52,10 @@ describe('Party management', () => {
       cy.contains('h1', 'Party #'+$elem.text())
       cy.contains('h3', 'Round #1')
 
-      cy.get('span.player').first().should('have.text', 'Player 1')
-      cy.get('span.player').last().should('have.text', 'Player 2')
+      cy.get('div.player .player-name').first().should('have.text', 'Player 1')
+      cy.get('div.player .player-name').last().should('have.text', 'Player 2')
+      cy.get('div.player .player-turn').first().should('have.text', 'Y')
+      cy.get('div.player .player-turn').last().should('have.text', 'N')
 
       const numberOfElements = 6 * 12;
       cy.get('span.cell')
@@ -51,5 +64,18 @@ describe('Party management', () => {
         .should('have.text', '.')
         .and('be.visible');
     })
+
+
   })
+
+  it('Should add tower to the board when player 1 is playing', () => {
+    cy.visit('/parties')
+    createParty()
+    startParty()
+
+    cy.contains('button', 'Add tower')
+
+
+  })
+
 })

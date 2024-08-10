@@ -19,7 +19,7 @@ import { Player } from '@/party/domain/Player'
 import type { Party } from '@/party/domain/Party'
 import CreatePartyCard from '@/party/infrastructure/primary/components/CreatePartyCard.vue'
 import { PartyToCreate } from '@/party/domain/PartyToCreate'
-import PartyList from '@/party/infrastructure/primary/components/PartyList.vue'
+import PartyList from '@/party/infrastructure/primary/components/PartiesList.vue'
 import { PartiesApplicationService } from '@/party/application/PartiesApplicationService'
 import type { PartyCreated } from '@/party/domain/PartyCreated'
 

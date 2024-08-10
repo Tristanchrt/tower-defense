@@ -20,12 +20,9 @@ describe('Board', () => {
     expect(board.getMatrix()[1][1]).toStrictEqual(towerToAdd)
   })
 
-  // TODO: throw error
-  // efdfd
-  // test('Should not place tower when x or y are not in the matrix area', () => {
-  //     const board = PartyFixture.board()
-  //     const towerToAdd = PartyFixture.towerToAddPlayer1(100, 1)
-  //     board.addTower(towerToAdd)
-  //     // expect(board.getMatrix()[1][1]).toStrictEqual(towerToAdd)
-  // })
+  test('Should not place tower when x or y are not in the matrix area', () => {
+      const board = PartyFixture.board()
+      const tower = PartyFixture.towerToAddPlayer1(100, 100)
+      expect(() => board.addTower(tower)).toThrowError('Not in the matrix area')
+  })
 })
