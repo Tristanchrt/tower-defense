@@ -40,12 +40,13 @@ describe('Party management', () => {
       cy.url().should('include','/parties/'+$elem.text())
       cy.contains('h1', 'Party #'+$elem.text())
       cy.contains('h3', 'Round #1')
-      // const numberOfElements = 6 * 12;
-      // cy.get('span.cell')
-      //   .should('have.length', numberOfElements)
-      //   .first()
-      //   .should('have.text', '.')
-      //   .and('be.visible');
+
+      const numberOfElements = 6 * 12;
+      cy.get('span.cell')
+        .should('have.length', numberOfElements)
+        .first()
+        .should('have.text', '.')
+        .and('be.visible');
     })
   })
 })
