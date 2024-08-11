@@ -13,7 +13,6 @@
 </template>
 
 <script setup lang="ts">
-
 import type { PropType } from 'vue'
 import type { Player } from '@/party/domain/Player'
 
@@ -32,9 +31,8 @@ const isPlaying = (player: Player) => {
   if (props.playerTurn.getName() === player.getName()) {
     return 'Y'
   }
-  return "N"
+  return 'N'
 }
-
 </script>
 
 <style scoped>

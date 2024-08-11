@@ -1,12 +1,13 @@
 <template>
-  <div class="party-players-to-play" v-if="party">`
+  <div class="party-players-to-play" v-if="party">
+    `
     <div class="party-board">
       <h1>Party #{{ partyId }}</h1>
       <h3>Round #1</h3>
       <BoardCard :board="party.getBoard()" />
     </div>
-    <PlayersList :players="party.getPlayers()" :player-turn="party.getPlayers()[0]"/>
-    <AddTowerCard @add-tower="addTower"/>
+    <PlayersList :players="party.getPlayers()" :player-turn="party.getPlayers()[0]" />
+    <AddTowerCard @add-tower="addTower" />
   </div>
 </template>
 
@@ -36,7 +37,6 @@ const addTower = () => {
 }
 
 fetchParty()
-
 </script>
 
 <style scoped>
@@ -45,5 +45,4 @@ fetchParty()
   justify-content: center;
   align-items: center;
 }
-
 </style>

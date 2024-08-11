@@ -55,8 +55,6 @@ export class Board {
   }
 
   public getTowers(): Tower[] {
-    return this.matrix
-      .flatMap(row => row)
-      .filter(cell => cell instanceof Tower) as Tower[];
+    return this.matrix.flatMap((row) => row).filter((cell) => cell instanceof Tower) as Tower[]
   }
 }
