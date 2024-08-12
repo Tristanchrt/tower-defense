@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, ref } from 'vue'
+import { computed, inject, onMounted, ref } from 'vue'
 import type { Party } from '@/party/domain/Party'
 import CreatePartyCard from '@/party/infrastructure/primary/components/CreatePartyCard.vue'
 import { PartyToCreate } from '@/party/domain/PartyToCreate'
@@ -39,7 +39,9 @@ const startParty = (party: PartyCreated) => {
   parties.value.push(partyPlayersToPlay)
 }
 
-fetchParties()
+onMounted(() => {
+  void fetchParties()
+})
 </script>
 
 <style scoped>

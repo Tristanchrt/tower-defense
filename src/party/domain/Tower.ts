@@ -5,7 +5,7 @@ export class Tower implements Cell {
   constructor(
     x: number,
     y: number,
-    private munitions: number,
+    private readonly munitions: number,
     private readonly player: Player
   ) {
     this.x = x
