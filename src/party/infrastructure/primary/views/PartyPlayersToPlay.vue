@@ -1,13 +1,12 @@
 <template>
   <div class="party-players-to-play" v-if="party">
-    `
     <div class="party-board">
       <h1>Party #{{ partyId }}</h1>
-      <h3>Round #1</h3>
+      <h3>Round #{{round}}</h3>
       <BoardCard :board="party.getBoard()" />
     </div>
     <PlayersList :players="party.getPlayers()" :player-turn="playerToPlayer as Player" />
-    <AddTowerCard @add-tower="addTower" />
+    <AddTowerCard @add-tower="onAddTower" />
   </div>
 </template>
 
@@ -25,6 +24,8 @@ import { Player } from '@/party/domain/Player'
 const partyId = ref<string | null>(null)
 const party = ref<PartyPlayersToPlay>()
 const playerToPlayer = ref<Player>()
+const playersPlayed = ref<Record<string, Player>>({})
+const round = ref<number>(1)
 
 const partyHandler = inject('partyApplicationService') as PartiesApplicationService
 
@@ -36,10 +37,19 @@ const fetchParty = () => {
   playerToPlayer.value = party.value!.getPlayers()[0]
 }
 
-const addTower = () => {
-  const tower = new Tower(0,0,10, party.value!.getPlayers()[0])
+const isAllPlayersHasPlayed = (): boolean => Object.keys(playersPlayed.value).length === party.value?.getPlayers().length
+
+const createTower = (x: number, y: number, player: Player) => new Tower(x, y, 10, player)
+
+const onAddTower = ({x, y}: { x: number; y: number }) => {
+  playersPlayed.value[playerToPlayer.value!.getName()] = playerToPlayer.value!
+  const tower = createTower(x, y, playerToPlayer!.value as Player)
   party.value?.play(tower)
   playerToPlayer.value = party.value?.getPlayers()[1]
+  if (isAllPlayersHasPlayed()) {
+    playerToPlayer.value = party.value?.getPlayers()[0]
+    round.value += 1
+  }
 }
 
 fetchParty()

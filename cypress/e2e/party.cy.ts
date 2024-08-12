@@ -68,15 +68,27 @@ describe('Party management', () => {
 
   })
 
-  it('Should add tower to the board when player 1 is playing', () => {
+  it('Should playing an entire round and go to the next round', () => {
     cy.visit('/parties')
     createParty()
     startParty()
 
-    cy.get('button').click()
+    cy.get('.tower-x').type('0');
+    cy.get('.tower-y').type('0');
+
+    cy.contains('button', 'Add tower').click()
     cy.get('span.cell').first().should('have.text', 'T').and('be.visible');
 
     cy.get('div.player .player-turn').first().should('have.text', 'N')
     cy.get('div.player .player-turn').last().should('have.text', 'Y')
+
+    cy.get('.tower-x').type('1');
+    cy.get('.tower-y').type('1');
+
+    cy.contains('button', 'Add tower').click()
+    cy.contains('h3', 'Round #2')
+
+    cy.get('div.player .player-turn').first().should('have.text', 'Y')
+    cy.get('div.player .player-turn').last().should('have.text', 'N')
   })
 })

@@ -33,10 +33,6 @@ export class PartyPlayersToPlay implements Party {
     return new PartyMonstersToPlay(this.id, this.board, players, this.round + 1)
   }
 
-  public getPlayerToPlay(): Player {
-    return this.playersToPlay[0]
-  }
-
   public getTowers(): Tower[] {
     return this.getBoard().getTowers()
   }
