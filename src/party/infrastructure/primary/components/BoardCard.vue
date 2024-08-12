@@ -28,7 +28,7 @@ const props = defineProps({
 const cellType = (cell: Cell) => {
   if (cell instanceof Tower) {
     return 'T'
-  }
+   }
   return '.'
 }
 </script>

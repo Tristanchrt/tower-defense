@@ -73,9 +73,10 @@ describe('Party management', () => {
     createParty()
     startParty()
 
-    cy.contains('button', 'Add tower')
+    cy.get('button').click()
+    cy.get('span.cell').first().should('have.text', 'T').and('be.visible');
 
-
+    cy.get('div.player .player-turn').first().should('have.text', 'N')
+    cy.get('div.player .player-turn').last().should('have.text', 'Y')
   })
-
 })
