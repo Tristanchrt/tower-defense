@@ -14,8 +14,6 @@
 
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue'
-import { Board } from '@/party/domain/Board'
-import { Player } from '@/party/domain/Player'
 import type { Party } from '@/party/domain/Party'
 import CreatePartyCard from '@/party/infrastructure/primary/components/CreatePartyCard.vue'
 import { PartyToCreate } from '@/party/domain/PartyToCreate'
@@ -30,17 +28,8 @@ const hasParties = computed(() => parties.value.length > 0)
 
 const fetchParties = () => (parties.value = partyHandler.getParties())
 
-const generateTimestampBasedString = () =>
-  (Math.floor(Math.random() * (10000 - 10)) + 10000).toString()
-
-const partyToCreate = () =>
-  new PartyToCreate(generateTimestampBasedString(), new Board(6, 12), [
-    new Player('Player 1'),
-    new Player('Player 2')
-  ])
-
-const createParty = () => {
-  const partyCreated = partyHandler.create(partyToCreate())
+const createParty = (party: PartyToCreate) => {
+  const partyCreated = partyHandler.create(party)
   parties.value.push(partyCreated)
 }
 

@@ -1,6 +1,7 @@
 import type { Cell } from './Cell'
 import { Floor } from './Floor'
 import { Tower } from './Tower'
+import { Monster } from '@/party/domain/Monster'
 
 export class Board {
   matrix: Cell[][]
@@ -41,6 +42,10 @@ export class Board {
     this.matrix[tower.x][tower.y] = tower
   }
 
+  public addMonster(monster: Monster): void {
+    this.matrix[monster.x][monster.y] = monster
+  }
+
   public isInMatrix(x: number, y: number): boolean {
     try {
       const val = this.matrix[x][y]
@@ -57,4 +62,9 @@ export class Board {
   public getTowers(): Tower[] {
     return this.matrix.flatMap((row) => row).filter((cell) => cell instanceof Tower) as Tower[]
   }
+
+  public getMonsters(): Monster[] {
+    return this.matrix.flatMap((row) => row).filter((cell) => cell instanceof Monster) as Monster[]
+  }
+
 }

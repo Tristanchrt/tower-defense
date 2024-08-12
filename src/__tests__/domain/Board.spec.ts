@@ -32,4 +32,11 @@ describe('Board', () => {
     board.addTower(tower)
     expect(board.getTowers()[0]).toStrictEqual(tower)
   })
+
+  test('Should get monsters', () => {
+    const board = PartyFixture.board()
+    const monster = PartyFixture.monsterOne(0, 4)
+    board.addMonster(monster)
+    expect(board.getMonsters()[0]).toStrictEqual(monster)
+  })
 })

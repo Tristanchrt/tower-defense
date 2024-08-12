@@ -31,4 +31,9 @@ describe('Party', () => {
     partyPlayersToPlay.play(tower)
     expect(partyPlayersToPlay.getTowers()[0]).toStrictEqual(tower)
   })
+
+  test('Should PartyMonsterToPlay play', () => {
+
+  })
+
 })
