@@ -17,6 +17,10 @@ export class PartyHandler {
     return this.partiesRepository.getParties()
   }
 
+  public getPartyById(id: string): Party {
+    return this.partiesRepository.getPartyById(id)
+  }
+
   public withPlayersToPlay(party: PartyCreated): PartyPlayersToPlay {
     const partyPlayerToPlay = party.toPlayersToPlay()
     this.partiesRepository.saveParty(partyPlayerToPlay)

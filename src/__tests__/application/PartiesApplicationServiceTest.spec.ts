@@ -48,4 +48,19 @@ describe('Parties application service test', () => {
 
     expect(partyPlayersToPlay).toEqual(PartyFixture.partyPlayersToPlayRoundOne())
   })
+
+  test('Should get party by ID', () => {
+    const party = PartyFixture.partyCreated()
+
+    const mockRestPartiesRepository = {
+      getPartyById: vi.fn().mockReturnValue(party)
+    }
+
+    const partiesApplicationService = new PartiesApplicationService(
+      mockRestPartiesRepository as unknown as RestPartiesRepository
+    )
+
+    const parties = partiesApplicationService.getPartyById("id")
+    expect(parties).toStrictEqual(party)
+  })
 })

@@ -23,4 +23,8 @@ export class PartiesApplicationService {
   public withPlayersToPlay(party: PartyCreated): PartyPlayersToPlay {
     return this.partyHandler.withPlayersToPlay(party)
   }
+
+  public getPartyById(id: string) {
+    return this.partyHandler.getPartyById(id)
+  }
 }

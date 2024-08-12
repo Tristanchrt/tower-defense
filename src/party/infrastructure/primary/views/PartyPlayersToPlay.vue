@@ -32,8 +32,8 @@ const partyHandler = inject('partyApplicationService') as PartiesApplicationServ
 const route = useRoute()
 
 const fetchParty = () => {
-  partyId.value = (route.params.id as string | undefined) ?? null
-  party.value = partyHandler.getParties()[0] as PartyPlayersToPlay
+  partyId.value = route.params.id as string
+  party.value = partyHandler.getPartyById(partyId.value) as PartyPlayersToPlay
   playerToPlayer.value = party.value!.getPlayers()[0]
 }
 

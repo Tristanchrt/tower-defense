@@ -40,4 +40,17 @@ describe('Party Handler', () => {
 
     expect(partyPlayersToPlayer).toStrictEqual(PartyFixture.partyPlayersToPlayRoundOne())
   })
+
+  test('Should get party by ID', () => {
+    const party = PartyFixture.partyCreated()
+
+    const mockPartiesRepository = {
+      getPartyById: vi.fn().mockReturnValue(party)
+    }
+    const partyHandler = new PartyHandler(mockPartiesRepository as unknown as PartiesRepository)
+
+    const parties = partyHandler.getPartyById("id")
+    expect(mockPartiesRepository.getPartyById).toHaveBeenCalled()
+    expect(parties).toStrictEqual(party)
+  })
 })
