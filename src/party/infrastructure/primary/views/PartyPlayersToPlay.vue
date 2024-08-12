@@ -1,8 +1,8 @@
 <template>
   <div class="party-players-to-play" v-if="party">
     <div class="party-board">
-      <h1>Party #{{ partyId }}</h1>
-      <h3>Round #{{round}}</h3>
+      <h1>Party #{{ party.id }}</h1>
+      <h3>Round #{{ round }}</h3>
       <BoardCard :board="party.getBoard()" />
     </div>
     <PlayersList :players="party.getPlayers()" :player-turn="playerToPlayer as Player" />
@@ -21,7 +21,6 @@ import type { PartyPlayersToPlay } from '@/party/domain/PartyPlayersToPlay'
 import { Tower } from '@/party/domain/Tower'
 import { Player } from '@/party/domain/Player'
 
-const partyId = ref<string | null>(null)
 const party = ref<PartyPlayersToPlay>()
 const playerToPlayer = ref<Player>()
 const playersPlayed = ref<Record<string, Player>>({})
@@ -32,22 +31,22 @@ const partyHandler = inject('partyApplicationService') as PartiesApplicationServ
 const route = useRoute()
 
 const fetchParty = () => {
-  partyId.value = route.params.id as string
-  party.value = partyHandler.getPartyById(partyId.value) as PartyPlayersToPlay
-  playerToPlayer.value = party.value!.getPlayers()[0]
+  party.value = partyHandler.getPartyById(route.params.id as string) as PartyPlayersToPlay
+  playerToPlayer.value = party.value!.getFirstPlayer()
 }
 
-const isAllPlayersHasPlayed = (): boolean => Object.keys(playersPlayed.value).length === party.value?.getPlayers().length
+const isAllPlayersHasPlayed = (): boolean =>
+  Object.keys(playersPlayed.value).length === party.value?.getPlayers().length
 
 const createTower = (x: number, y: number, player: Player) => new Tower(x, y, 10, player)
 
-const onAddTower = ({x, y}: { x: number; y: number }) => {
+const onAddTower = ({ x, y }: { x: number; y: number }) => {
   playersPlayed.value[playerToPlayer.value!.getName()] = playerToPlayer.value!
   const tower = createTower(x, y, playerToPlayer!.value as Player)
   party.value?.play(tower)
-  playerToPlayer.value = party.value?.getPlayers()[1]
+  playerToPlayer.value = party.value?.getLastPlayer()
   if (isAllPlayersHasPlayed()) {
-    playerToPlayer.value = party.value?.getPlayers()[0]
+    playerToPlayer.value = party.value?.getFirstPlayer()
     round.value += 1
   }
 }

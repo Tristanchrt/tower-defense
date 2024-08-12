@@ -20,7 +20,7 @@ export class PartiesApplicationService {
     return this.partyHandler.getParties()
   }
 
-  public withPlayersToPlay(party: PartyCreated): PartyPlayersToPlay {
+  public toPlayersToPlay(party: PartyCreated): PartyPlayersToPlay {
     return this.partyHandler.withPlayersToPlay(party)
   }
 

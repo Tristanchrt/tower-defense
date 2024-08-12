@@ -42,7 +42,7 @@ describe('Parties application service test', () => {
       mockRestPartiesRepository as unknown as RestPartiesRepository
     )
 
-    const partyPlayersToPlay = partiesApplicationService.withPlayersToPlay(
+    const partyPlayersToPlay = partiesApplicationService.toPlayersToPlay(
       PartyFixture.partyCreated()
     )
 
@@ -60,7 +60,7 @@ describe('Parties application service test', () => {
       mockRestPartiesRepository as unknown as RestPartiesRepository
     )
 
-    const parties = partiesApplicationService.getPartyById("id")
+    const parties = partiesApplicationService.getPartyById('id')
     expect(parties).toStrictEqual(party)
   })
 })

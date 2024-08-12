@@ -29,6 +29,14 @@ export class PartyPlayersToPlay implements Party {
     return this.players
   }
 
+  public getFirstPlayer(): Player {
+    return this.getPlayers()[0]
+  }
+
+  public getLastPlayer(): Player {
+    return this.getPlayers()[1]
+  }
+
   public toMonsterToPlay(players: Player[]): PartyMonstersToPlay {
     return new PartyMonstersToPlay(this.id, this.board, players, this.round + 1)
   }

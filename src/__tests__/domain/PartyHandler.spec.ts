@@ -49,7 +49,7 @@ describe('Party Handler', () => {
     }
     const partyHandler = new PartyHandler(mockPartiesRepository as unknown as PartiesRepository)
 
-    const parties = partyHandler.getPartyById("id")
+    const parties = partyHandler.getPartyById('id')
     expect(mockPartiesRepository.getPartyById).toHaveBeenCalled()
     expect(parties).toStrictEqual(party)
   })

@@ -45,7 +45,7 @@ const createParty = () => {
 }
 
 const startParty = (party: PartyCreated) => {
-  const partyPlayersToPlay = partyHandler.withPlayersToPlay(party)
+  const partyPlayersToPlay = partyHandler.toPlayersToPlay(party)
   parties.value = parties.value.filter((party: Party) => party.id !== partyPlayersToPlay.id)
   parties.value.push(partyPlayersToPlay)
 }
