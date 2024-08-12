@@ -11,7 +11,6 @@ import { Player } from '@/party/domain/Player'
 
 const emit = defineEmits(['create-party'])
 
-
 const generateTimestampBasedString = () =>
   (Math.floor(Math.random() * (10000 - 10)) + 10000).toString()
 

@@ -8,5 +8,4 @@ export class Monster implements Cell {
     this.x = x
     this.y = y
   }
-
 }

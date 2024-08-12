@@ -33,7 +33,5 @@ describe('Party', () => {
   })
 
   test('Should PartyMonsterToPlay play', () => {
-
   })
-
 })

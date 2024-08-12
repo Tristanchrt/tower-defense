@@ -7,8 +7,8 @@ export class PartyMonstersToPlay implements Party {
   id: string
   constructor(
     id: string,
-    private board: Board,
-    private players: Player[],
+    private readonly board: Board,
+    private readonly players: Player[],
     private round: number
   ) {
     this.id = id
