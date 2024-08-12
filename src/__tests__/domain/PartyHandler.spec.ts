@@ -31,12 +31,11 @@ describe('Party Handler', () => {
 
   test('Should transform partyCreated to PartyPlayersToPlayer', () => {
     const mockPartiesRepository = {
-      saveParty: vi.fn(),
-      withPlayersToPlay: vi.fn()
+      saveParty: vi.fn()
     }
     const partyHandler = new PartyHandler(mockPartiesRepository as unknown as PartiesRepository)
 
-    const partyPlayersToPlayer = partyHandler.withPlayersToPlay(PartyFixture.partyCreated())
+    const partyPlayersToPlayer = partyHandler.toCreateParty(PartyFixture.partyCreated())
 
     expect(partyPlayersToPlayer).toStrictEqual(PartyFixture.partyPlayersToPlayRoundOne())
   })
@@ -52,5 +51,18 @@ describe('Party Handler', () => {
     const parties = partyHandler.getPartyById('id')
     expect(mockPartiesRepository.getPartyById).toHaveBeenCalled()
     expect(parties).toStrictEqual(party)
+  })
+
+  test('Should transform PartyPlayersToPlayer to PartyMonsterToPlay', () => {
+    const mockPartiesRepository = {
+      saveParty: vi.fn()
+    }
+    const partyHandler = new PartyHandler(mockPartiesRepository as unknown as PartiesRepository)
+
+    const partyMonsterToPlay = partyHandler.toMonsterParty(
+      PartyFixture.partyPlayersToPlayRoundOne()
+    )
+
+    expect(partyMonsterToPlay).toStrictEqual(PartyFixture.partyMonstersToPlayRoundTwo())
   })
 })

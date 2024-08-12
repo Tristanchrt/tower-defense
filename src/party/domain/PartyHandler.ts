@@ -3,6 +3,7 @@ import type { PartiesRepository } from '@/party/domain/PartiesRepository'
 import type { PartyCreated } from '@/party/domain/PartyCreated'
 import type { Party } from '@/party/domain/Party'
 import type { PartyPlayersToPlay } from '@/party/domain/PartyPlayersToPlay'
+import type { PartyMonstersToPlay } from '@/party/domain/PartyMonsterToPlay'
 
 export class PartyHandler {
   constructor(private partiesRepository: PartiesRepository) {}
@@ -21,9 +22,15 @@ export class PartyHandler {
     return this.partiesRepository.getPartyById(id)
   }
 
-  public withPlayersToPlay(party: PartyCreated): PartyPlayersToPlay {
+  public toCreateParty(party: PartyCreated): PartyPlayersToPlay {
     const partyPlayerToPlay = party.toPlayersToPlay()
     this.partiesRepository.saveParty(partyPlayerToPlay)
     return partyPlayerToPlay
+  }
+
+  public toMonsterParty(party: PartyPlayersToPlay): PartyMonstersToPlay {
+    const partyMonsterToPlay = party.toMonsterToPlay()
+    this.partiesRepository.saveParty(partyMonsterToPlay)
+    return partyMonsterToPlay
   }
 }

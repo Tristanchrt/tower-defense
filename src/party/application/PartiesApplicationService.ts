@@ -21,7 +21,11 @@ export class PartiesApplicationService {
   }
 
   public toPlayersToPlay(party: PartyCreated): PartyPlayersToPlay {
-    return this.partyHandler.withPlayersToPlay(party)
+    return this.partyHandler.toCreateParty(party)
+  }
+
+  public toMonsterToPlay(party: PartyPlayersToPlay) {
+    return this.partyHandler.toMonsterParty(party)
   }
 
   public getPartyById(id: string) {

@@ -15,10 +15,7 @@ describe('Party', () => {
 
   test('Should PartyPlayersToPlay.vue change to PartyMonsterToPlay', () => {
     const partyPlayersToPlay = PartyFixture.partyPlayersToPlayRoundOne()
-    const partyMonstersToPlay = partyPlayersToPlay.toMonsterToPlay([
-      PartyFixture.player1(),
-      PartyFixture.player2()
-    ])
+    const partyMonstersToPlay = partyPlayersToPlay.toMonsterToPlay()
     expect(partyMonstersToPlay).toStrictEqual(PartyFixture.partyMonstersToPlayRoundTwo())
   })
 

@@ -37,8 +37,8 @@ export class PartyPlayersToPlay implements Party {
     return this.getPlayers()[1]
   }
 
-  public toMonsterToPlay(players: Player[]): PartyMonstersToPlay {
-    return new PartyMonstersToPlay(this.id, this.board, players, this.round + 1)
+  public toMonsterToPlay(): PartyMonstersToPlay {
+    return new PartyMonstersToPlay(this.id, this.board, this.players, this.round + 1)
   }
 
   public getTowers(): Tower[] {

@@ -34,8 +34,7 @@ describe('Parties application service test', () => {
 
   test('Should transform partyCreated to PartyPlayersToPlayer', () => {
     const mockRestPartiesRepository = {
-      saveParty: vi.fn(),
-      withPlayersToPlay: vi.fn()
+      saveParty: vi.fn()
     }
 
     const partiesApplicationService = new PartiesApplicationService(
@@ -62,5 +61,21 @@ describe('Parties application service test', () => {
 
     const parties = partiesApplicationService.getPartyById('id')
     expect(parties).toStrictEqual(party)
+  })
+
+  test('Should transform PartyPlayersToPlayer to PartyMonsterToPlay', () => {
+    const mockRestPartiesRepository = {
+      saveParty: vi.fn()
+    }
+
+    const partiesApplicationService = new PartiesApplicationService(
+      mockRestPartiesRepository as unknown as RestPartiesRepository
+    )
+
+    const partyMonsterToPlay = partiesApplicationService.toMonsterToPlay(
+      PartyFixture.partyPlayersToPlayRoundOne()
+    )
+
+    expect(partyMonsterToPlay).toStrictEqual(PartyFixture.partyMonstersToPlayRoundTwo())
   })
 })
