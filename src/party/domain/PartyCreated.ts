@@ -24,6 +24,6 @@ export class PartyCreated implements Party {
   }
 
   public toPlayersToPlay(): PartyPlayersToPlay {
-    return new PartyPlayersToPlay(this.id, this.board, this.players, 1)
+    return new PartyPlayersToPlay(this.id, this.board, this.players, [], 1)
   }
 }

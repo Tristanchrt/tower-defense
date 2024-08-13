@@ -3,7 +3,7 @@
     <div class="party-board">
       <h1>Party #{{ party.id }}</h1>
       <h3>Round #{{ round }}</h3>
-      <BoardCard :board="party.getBoard()" />
+      <BoardCard :board="party.display()" />
     </div>
     <PlayersList :players="party.getPlayers()" :player-turn="playerToPlayer as Player" />
     <AddTowerCard @add-tower="onAddTower" />
@@ -43,7 +43,7 @@ const createTower = (x: number, y: number, player: Player) => new Tower(x, y, 10
 const onAddTower = ({ x, y }: Cell) => {
   playersPlayed.value[playerToPlayer.value!.getName()] = playerToPlayer.value!
   const tower = createTower(x, y, playerToPlayer!.value as Player)
-  party.value?.play(tower)
+  party.value?.addTower(tower)
   playerToPlayer.value = party.value?.getLastPlayer()
   if (isAllPlayersHasPlayed()) {
     playerToPlayer.value = party.value?.getFirstPlayer()

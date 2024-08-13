@@ -21,6 +21,7 @@ export class PartyFixture {
       this.idParty(),
       PartyFixture.board(),
       [this.player1(), this.player2()],
+      [],
       1
     )
   }
@@ -30,6 +31,17 @@ export class PartyFixture {
       this.idParty(),
       PartyFixture.board(),
       [this.player1(), this.player2()],
+      [],
+      2
+    )
+  }
+
+  public static partyMonstersToPlayRoundTwoWithTower(): PartyMonstersToPlay {
+    return new PartyMonstersToPlay(
+      this.idParty(),
+      PartyFixture.board(),
+      [this.player1(), this.player2()],
+      [PartyFixture.towerToAddPlayer1(0,0)],
       2
     )
   }
@@ -39,6 +51,7 @@ export class PartyFixture {
       this.idParty(),
       PartyFixture.board(),
       [this.player1(), this.player2()],
+      [],
       2
     )
   }

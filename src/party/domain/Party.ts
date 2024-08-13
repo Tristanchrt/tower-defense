@@ -7,3 +7,8 @@ export interface Party {
   getBoard(): Board
   getPlayers(): Player[]
 }
+
+export interface PartyPlay extends Party {
+  getTowers(): Tower[]
+  display(): Board
+}

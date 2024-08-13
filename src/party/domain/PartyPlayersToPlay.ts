@@ -1,22 +1,28 @@
 import { Board } from './Board'
-import type { Party } from './Party'
+import type { PartyPlay } from './Party'
 import { PartyMonstersToPlay } from './PartyMonsterToPlay'
 import { Player } from './Player'
 import { type Tower } from '@/party/domain/Tower'
 
-export class PartyPlayersToPlay implements Party {
+export class PartyPlayersToPlay implements PartyPlay {
   id: string
 
   constructor(
     id: string,
     private readonly board: Board,
     private readonly players: Player[],
-    private round: number
+    private towers: Tower[],
+    private readonly round: number
   ) {
     this.id = id
     this.board = board
     this.players = players
+    this.towers = towers
     this.round = round
+  }
+
+  display(): Board {
+    return this.board.display(this.towers)
   }
 
   public getBoard(): Board {
@@ -36,14 +42,17 @@ export class PartyPlayersToPlay implements Party {
   }
 
   public toMonsterToPlay(): PartyMonstersToPlay {
-    return new PartyMonstersToPlay(this.id, this.board, this.players, this.round + 1)
+    return new PartyMonstersToPlay(this.id, this.board, this.players, this.towers, this.round + 1)
   }
 
   public getTowers(): Tower[] {
-    return this.getBoard().getTowers()
+    return this.towers
   }
 
-  public play(tower: Tower) {
-    this.board.addTower(tower)
+  public addTower(tower: Tower) {
+    if(!this.getBoard().isInMatrix(tower.x, tower.y)){
+      throw new Error('Not in the matrix area')
+    }
+    this.towers.push(tower)
   }
 }

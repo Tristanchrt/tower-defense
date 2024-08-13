@@ -1,7 +1,5 @@
 import type { Cell } from './Cell'
 import { Floor } from './Floor'
-import { Tower } from './Tower'
-import { Monster } from '@/party/domain/Monster'
 
 export class Board {
   matrix: Cell[][]
@@ -16,15 +14,16 @@ export class Board {
   }
 
   private initMatrix(width: number, height: number): Cell[][] {
-    const matrix = []
-    for (let i = 0; i < width; i++) {
-      const row = []
-      for (let j = 0; j < height; j++) {
-        row.push(new Floor(i, j))
-      }
-      matrix.push(row)
+    return Array.from({ length: width }, (_, i) =>
+      Array.from({ length: height }, (_, j) => new Floor(i, j))
+    );
+  }
+
+  public display(pieces: Cell[]): Board {
+    for (const piece of pieces) {
+      this.matrix[piece.x][piece.y] = piece
     }
-    return matrix
+    return this
   }
 
   public getWidth(): number {
@@ -33,17 +32,6 @@ export class Board {
 
   public getHeight(): number {
     return this.height
-  }
-
-  public addTower(tower: Tower): void {
-    if (!this.isInMatrix(tower.x, tower.y)) {
-      throw new Error('Not in the matrix area')
-    }
-    this.matrix[tower.x][tower.y] = tower
-  }
-
-  public addMonster(monster: Monster): void {
-    this.matrix[monster.x][monster.y] = monster
   }
 
   public isInMatrix(x: number, y: number): boolean {
@@ -58,13 +46,4 @@ export class Board {
   public getMatrix(): Cell[][] {
     return this.matrix
   }
-
-  public getTowers(): Tower[] {
-    return this.matrix.flatMap((row) => row).filter((cell) => cell instanceof Tower) as Tower[]
-  }
-
-  public getMonsters(): Monster[] {
-    return this.matrix.flatMap((row) => row).filter((cell) => cell instanceof Monster) as Monster[]
-  }
-
 }
