@@ -29,9 +29,8 @@ const round = ref<number>(1)
 
 const partyHandler = inject('partyApplicationService') as PartiesApplicationService
 
-const route = useRoute()
-
 const fetchParty = () => {
+  const route = useRoute()
   party.value = partyHandler.getPartyById(route.params.id as string) as PartyPlayersToPlay
   playerToPlayer.value = party.value!.getFirstPlayer()
 }

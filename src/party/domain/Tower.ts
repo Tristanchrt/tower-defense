@@ -5,7 +5,7 @@ export class Tower implements Cell {
   constructor(
     x: number,
     y: number,
-    private readonly munitions: number,
+    private munitions: number,
     private readonly player: Player
   ) {
     this.x = x
@@ -15,6 +15,10 @@ export class Tower implements Cell {
   }
   x: number
   y: number
+
+  public removeMunitions(): void {
+    this.munitions -= 1
+  }
 
   public getMunitions(): number {
     return this.munitions

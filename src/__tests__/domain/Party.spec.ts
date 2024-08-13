@@ -33,5 +33,17 @@ describe('Party', () => {
   })
 
   test('Should PartyMonsterToPlay play', () => {
+    const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwo()
+    const partyPlayersToPlay = partyMonstersToPlay.play()
+    expect(partyPlayersToPlay).toStrictEqual(PartyFixture.partyPlayersToPlayRoundTwo())
+  })
+
+  test('Should run a wave for PartyMonsterToPlay and create a monster', () => {
+    const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwo()
+    partyMonstersToPlay.waveRun()
+    const monster = PartyFixture.monsterOne(0, 4)
+    expect(partyMonstersToPlay.getMonsters()[0].x).toEqual(monster.x)
+    expect(monster.y).toBeLessThanOrEqual(partyMonstersToPlay.getBoard().getHeight())
+    expect(monster.y).toBeGreaterThanOrEqual(0)
   })
 })

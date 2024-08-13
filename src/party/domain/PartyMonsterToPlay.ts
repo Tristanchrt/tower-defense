@@ -2,9 +2,12 @@ import { type Board } from './Board'
 import type { Party } from './Party'
 import { PartyPlayersToPlay } from './PartyPlayersToPlay'
 import { type Player } from './Player'
+import { Monster } from '@/party/domain/Monster'
 
 export class PartyMonstersToPlay implements Party {
   id: string
+  wave: number = 5
+  monsters: Monster[] = []
   constructor(
     id: string,
     private readonly board: Board,
@@ -16,15 +19,35 @@ export class PartyMonstersToPlay implements Party {
     this.players = players
   }
 
-  public getBoard(): Board {
+  getBoard(): Board {
     return this.board
   }
 
-  public getPlayers(): Player[] {
+  getPlayers(): Player[] {
     return this.players
   }
 
-  public toPlayersToPlay() {
+  getMonsters(): Monster[] {
+    return this.monsters
+  }
+
+  waveRun(): void {
+    this.monsters.push(this.generateMonsters())
+  }
+
+  toPlayersToPlay() {
     return new PartyPlayersToPlay(this.id, this.board, this.players, this.round)
+  }
+
+  play(): PartyPlayersToPlay {
+    return this.toPlayersToPlay()
+  }
+
+  private generateMonsters(): Monster {
+    return new Monster(0, this.randomY())
+  }
+
+  private randomY() {
+    return Math.floor(Math.random() * this.getBoard().getHeight());
   }
 }

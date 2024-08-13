@@ -6,7 +6,6 @@ import { type Tower } from '@/party/domain/Tower'
 
 export class PartyPlayersToPlay implements Party {
   id: string
-  private readonly playersToPlay: Player[]
 
   constructor(
     id: string,
@@ -18,7 +17,6 @@ export class PartyPlayersToPlay implements Party {
     this.board = board
     this.players = players
     this.round = round
-    this.playersToPlay = players
   }
 
   public getBoard(): Board {
