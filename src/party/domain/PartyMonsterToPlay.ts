@@ -53,11 +53,13 @@ export class PartyMonstersToPlay implements PartyPlay {
   waveTowers(): void {
     for (const tower of this.towers) {
       for (const monster of this.monsters) {
-        if(this.hasRange(tower, monster)){
+        if(this.hasRange(tower, monster) && tower.hasMunitions()){
           const index = this.monsters.indexOf(monster);
           if (index > -1) {
             this.monsters.splice(index, 1);
+            tower.removeMunitions()
           }
+          break
         }
       }
     }

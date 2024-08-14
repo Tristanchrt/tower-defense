@@ -16,6 +16,10 @@ export class Tower implements Cell {
   x: number
   y: number
 
+  public hasMunitions(): boolean {
+    return this.munitions > 0
+  }
+
   public removeMunitions(): void {
     this.munitions -= 1
   }

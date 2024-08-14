@@ -85,6 +85,7 @@ describe('Party', () => {
     partyMonstersToPlay.waveMonster()
     partyMonstersToPlay.waveTowers()
     expect(partyMonstersToPlay.getMonsters().length).toEqual(0)
+    expect(partyMonstersToPlay.getTowers()[0].getMunitions()).toEqual(9)
   })
 
   test('Should tower searching for monster and find nothing', () => {
@@ -96,5 +97,7 @@ describe('Party', () => {
     partyMonstersToPlay.waveTowers()
     expect(partyMonstersToPlay.getMonsters().length).toEqual(1)
   })
+
+
 
 })
