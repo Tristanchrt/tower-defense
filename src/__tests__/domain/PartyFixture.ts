@@ -46,6 +46,16 @@ export class PartyFixture {
     )
   }
 
+  public static partyMonstersToPlayRoundTwoWithTowers(): PartyMonstersToPlay {
+    return new PartyMonstersToPlay(
+      this.idParty(),
+      PartyFixture.board(),
+      [this.player1(), this.player2()],
+      [PartyFixture.towerToAddPlayer1(0,0), PartyFixture.towerToAddPlayer1(3,0)],
+      2
+    )
+  }
+
   public static partyPlayersToPlayRoundTwo(): PartyPlayersToPlay {
     return new PartyPlayersToPlay(
       this.idParty(),
@@ -73,7 +83,7 @@ export class PartyFixture {
   }
 
   public static towerToAddPlayer1(x: number, y: number): Tower {
-    return new Tower(x, y, 10, this.player1())
+    return new Tower(x, y, 5, this.player1())
   }
 
   public static partyToCreate() {

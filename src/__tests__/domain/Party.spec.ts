@@ -85,7 +85,7 @@ describe('Party', () => {
     partyMonstersToPlay.waveMonster()
     partyMonstersToPlay.waveTowers()
     expect(partyMonstersToPlay.getMonsters().length).toEqual(0)
-    expect(partyMonstersToPlay.getTowers()[0].getMunitions()).toEqual(9)
+    expect(partyMonstersToPlay.getTowers()[0].getMunitions()).toEqual(4)
   })
 
   test('Should tower searching for monster and find nothing', () => {
@@ -98,6 +98,13 @@ describe('Party', () => {
     expect(partyMonstersToPlay.getMonsters().length).toEqual(1)
   })
 
+  test('Should party do a complete wave', () => {
+    const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwoWithTowers()
+    vi.spyOn(partyMonstersToPlay, 'generateMonsters').mockReturnValue(new Monster(1,1));
 
-
+    partyMonstersToPlay.wavePlay()
+    expect(partyMonstersToPlay.getTowers()[0].getMunitions()).toEqual(0)
+    expect(partyMonstersToPlay.getTowers()[1].getMunitions()).toEqual(2)
+    expect(partyMonstersToPlay.getMonsters().length).toEqual(2)
+  })
 })

@@ -7,7 +7,7 @@ import type { Tower } from '@/party/domain/Tower'
 
 export class PartyMonstersToPlay implements PartyPlay {
   id: string
-  wave: number = 5
+  wave: number = 10
   monsters: Monster[] = []
   constructor(
     id: string,
@@ -43,6 +43,13 @@ export class PartyMonstersToPlay implements PartyPlay {
     return this.towers
   }
 
+  wavePlay(): void {
+    for (let pas = 0; pas < this.wave; pas++) {
+      this.waveMonster()
+      this.waveTowers()
+    }
+  }
+
   waveMonster(): void {
     for (const monster of this.monsters) {
       monster.x += 1
@@ -53,7 +60,7 @@ export class PartyMonstersToPlay implements PartyPlay {
   waveTowers(): void {
     for (const tower of this.towers) {
       for (const monster of this.monsters) {
-        if(this.hasRange(tower, monster) && tower.hasMunitions()){
+        if(this.hasRange(tower, monster) && tower.hasMunitions()) {
           const index = this.monsters.indexOf(monster);
           if (index > -1) {
             this.monsters.splice(index, 1);
