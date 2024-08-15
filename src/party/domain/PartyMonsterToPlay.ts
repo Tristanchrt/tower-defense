@@ -27,6 +27,10 @@ export class PartyMonstersToPlay implements PartyPlay {
     return this.board.display([...this.towers, ...this.monsters])
   }
 
+  getRound(): number {
+    return this.round
+  }
+
   getBoard(): Board {
     return this.board
   }

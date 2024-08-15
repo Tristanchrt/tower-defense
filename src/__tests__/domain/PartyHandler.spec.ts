@@ -2,6 +2,7 @@ import { PartyHandler } from '@/party/domain/PartyHandler'
 import { describe, expect, test, vi } from 'vitest'
 import type { PartiesRepository } from '@/party/domain/PartiesRepository'
 import { PartyFixture } from '@/__tests__/domain/PartyFixture'
+import { Monster } from '@/party/domain/Monster'
 
 describe('Party Handler', () => {
   test('Should create party when calling creator', () => {
@@ -64,5 +65,20 @@ describe('Party Handler', () => {
     )
 
     expect(partyMonsterToPlay).toStrictEqual(PartyFixture.partyMonstersToPlayRoundTwo())
+  })
+
+  test('Should PartyMonsterToPlay play and return PartyPlayersToPlayer', () => {
+    const mockPartiesRepository = {
+      saveParty: vi.fn()
+    }
+    const partyHandler = new PartyHandler(mockPartiesRepository as unknown as PartiesRepository)
+
+    const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwoWithTowers()
+
+    vi.spyOn(partyMonstersToPlay, 'generateMonsters').mockReturnValue(new Monster(1, 1))
+
+    const party = partyHandler.monsterPlay(partyMonstersToPlay)
+
+    expect(party).toStrictEqual(PartyFixture.partyPlayersToPlayRoundTwoWithTowers())
   })
 })

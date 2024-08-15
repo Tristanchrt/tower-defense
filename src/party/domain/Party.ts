@@ -10,5 +10,6 @@ export interface Party {
 
 export interface PartyPlay extends Party {
   getTowers(): Tower[]
+  getRound(): number
   display(): Board
 }

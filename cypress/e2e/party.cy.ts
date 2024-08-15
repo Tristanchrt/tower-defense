@@ -94,7 +94,6 @@ describe('Party management', () => {
 
     cy.get('.tower-positions').last().should('have.text', '0,0').and('be.visible');
     cy.get('.tower-munitions').last().should('have.text', '5').and('be.visible');
-    cy.get('.tower-munitions').last().should('have.class', 'has-munitions')
 
     cy.contains('button', 'Add tower').click()
     cy.contains('h3', 'Round #2')

@@ -2,14 +2,14 @@
   <div class="party-players-to-play" v-if="party">
     <div class="party-board">
       <h1>Party #{{ party.id }}</h1>
-      <h3>Round #{{ round }}</h3>
+      <h3>Round #{{ party.round }}</h3>
       <BoardCard :board="party.display()" />
     </div>
     <PlayersList :players="party.getPlayers()" :player-turn="playerToPlayer as Player" />
     <div class="tower-lifecycle">
       <AddTowerCard @add-tower="onAddTower" />
-      <div class="break-1"/>
-      <TowersList :towers="party.getTowers()"/>
+      <div class="break-1" />
+      <TowersList :towers="party.getTowers()" />
     </div>
   </div>
 </template>
@@ -30,7 +30,6 @@ import TowersList from '@/party/infrastructure/primary/components/TowersList.vue
 const party = ref<PartyPlayersToPlay>()
 const playerToPlayer = ref<Player>()
 const playersPlayed = ref<Record<string, Player>>({})
-const round = ref<number>(1)
 
 const partyHandler = inject('partyApplicationService') as PartiesApplicationService
 
@@ -51,8 +50,8 @@ const onAddTower = ({ x, y }: Cell) => {
   party.value?.addTower(tower)
   playerToPlayer.value = party.value?.getLastPlayer()
   if (isAllPlayersHasPlayed()) {
-    playerToPlayer.value = party.value?.getFirstPlayer()
-    round.value += 1
+    const partyMonsterToPlay = partyHandler.toMonsterToPlay(party.value as PartyPlayersToPlay)
+    party.value = partyHandler.monsterPlay(partyMonsterToPlay)
   }
 }
 onMounted(() => {

@@ -25,6 +25,10 @@ export class PartyPlayersToPlay implements PartyPlay {
     return this.board.display(this.towers)
   }
 
+  getRound(): number {
+    return this.round
+  }
+
   public getBoard(): Board {
     return this.board
   }

@@ -4,6 +4,7 @@ import type { PartyCreated } from '@/party/domain/PartyCreated'
 import { RestPartiesRepository } from '@/party/infrastructure/secondary/RestPartiesRepository'
 import type { Party } from '@/party/domain/Party'
 import type { PartyPlayersToPlay } from '@/party/domain/PartyPlayersToPlay'
+import type { PartyMonstersToPlay } from '@/party/domain/PartyMonsterToPlay'
 
 export class PartiesApplicationService {
   private partyHandler: PartyHandler
@@ -30,5 +31,9 @@ export class PartiesApplicationService {
 
   public getPartyById(id: string) {
     return this.partyHandler.getPartyById(id)
+  }
+
+  public monsterPlay(party: PartyMonstersToPlay) {
+    return this.partyHandler.monsterPlay(party)
   }
 }

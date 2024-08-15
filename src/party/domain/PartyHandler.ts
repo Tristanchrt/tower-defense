@@ -33,4 +33,10 @@ export class PartyHandler {
     this.partiesRepository.saveParty(partyMonsterToPlay)
     return partyMonsterToPlay
   }
+
+  public monsterPlay(party: PartyMonstersToPlay): PartyPlayersToPlay {
+    const partyPlayerToPlay = party.play()
+    this.partiesRepository.saveParty(partyPlayerToPlay)
+    return partyPlayerToPlay
+  }
 }
