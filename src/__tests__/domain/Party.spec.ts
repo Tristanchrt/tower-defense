@@ -107,4 +107,11 @@ describe('Party', () => {
     expect(partyMonstersToPlay.getTowers()[1].getMunitions()).toEqual(2)
     expect(partyMonstersToPlay.getMonsters().length).toEqual(2)
   })
+
+  test('Should party play', () => {
+    const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwoWithTowers()
+    vi.spyOn(partyMonstersToPlay, 'generateMonsters').mockReturnValue(new Monster(1, 1))
+    const party = partyMonstersToPlay.play()
+    expect(party).toStrictEqual(PartyFixture.partyPlayersToPlayRoundTwoWithTowers())
+  })
 })

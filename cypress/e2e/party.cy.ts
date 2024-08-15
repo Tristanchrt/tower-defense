@@ -64,8 +64,6 @@ describe('Party management', () => {
         .should('have.text', '.')
         .and('be.visible');
     })
-
-
   })
 
   it('Should playing an entire round and go to the next round', () => {

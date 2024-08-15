@@ -77,6 +77,7 @@ export class PartyMonstersToPlay implements PartyPlay {
   }
 
   play(): PartyPlayersToPlay {
+    this.wavePlay()
     return this.toPlayersToPlay()
   }
 
