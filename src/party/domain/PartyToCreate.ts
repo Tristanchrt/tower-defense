@@ -13,7 +13,7 @@ export class PartyToCreate {
     this.players = players
   }
 
-  public create() {
+  create() {
     return new PartyCreated(this.id, this.board, this.players)
   }
 }

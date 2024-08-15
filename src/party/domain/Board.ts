@@ -13,28 +13,22 @@ export class Board {
     this.matrix = this.initMatrix(width, height)
   }
 
-  private initMatrix(width: number, height: number): Cell[][] {
-    return Array.from({ length: width }, (_, i) =>
-      Array.from({ length: height }, (_, j) => new Floor(i, j))
-    )
-  }
-
-  public display(pieces: Cell[]): Board {
+  display(pieces: Cell[]): Board {
     for (const piece of pieces) {
       this.matrix[piece.x][piece.y] = piece
     }
     return this
   }
 
-  public getWidth(): number {
+  getWidth(): number {
     return this.width
   }
 
-  public getHeight(): number {
+  getHeight(): number {
     return this.height
   }
 
-  public isInMatrix(x: number, y: number): boolean {
+  isInMatrix(x: number, y: number): boolean {
     try {
       const val = this.matrix[x][y]
       return val != undefined
@@ -43,7 +37,13 @@ export class Board {
     }
   }
 
-  public getMatrix(): Cell[][] {
+  getMatrix(): Cell[][] {
     return this.matrix
+  }
+
+  private initMatrix(width: number, height: number): Cell[][] {
+    return Array.from({ length: width }, (_, i) =>
+      Array.from({ length: height }, (_, j) => new Floor(i, j))
+    )
   }
 }

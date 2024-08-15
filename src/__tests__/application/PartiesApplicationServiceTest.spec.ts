@@ -87,7 +87,7 @@ describe('Parties application service test', () => {
 
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwoWithTowers()
 
-    vi.spyOn(partyMonstersToPlay, 'generateMonsters').mockReturnValue(new Monster(1, 1))
+    vi.spyOn(partyMonstersToPlay, 'generateMonster').mockReturnValue(new Monster(1, 1))
 
     const partiesApplicationService = new PartiesApplicationService(
       mockRestPartiesRepository as unknown as RestPartiesRepository

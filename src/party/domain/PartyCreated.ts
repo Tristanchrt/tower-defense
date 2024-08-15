@@ -15,15 +15,15 @@ export class PartyCreated implements Party {
     this.players = players
   }
 
-  public getBoard(): Board {
+  getBoard(): Board {
     return this.board
   }
 
-  public getPlayers(): Player[] {
+  getPlayers(): Player[] {
     return this.players
   }
 
-  public toPlayersToPlay(): PartyPlayersToPlay {
+  toPlayersToPlay(): PartyPlayersToPlay {
     return new PartyPlayersToPlay(this.id, this.board, this.players, [], 1)
   }
 }

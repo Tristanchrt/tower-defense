@@ -2,7 +2,7 @@
   <div class="party-players-to-play" v-if="party">
     <div class="party-board">
       <h1>Party #{{ party.id }}</h1>
-      <h3>Round #{{ party.round }}</h3>
+      <h3>Round #{{ party.getRound() }}</h3>
       <BoardCard :board="party.display()" />
     </div>
     <PlayersList :players="party.getPlayers()" :player-turn="playerToPlayer as Player" />
@@ -52,8 +52,10 @@ const onAddTower = ({ x, y }: Cell) => {
   if (isAllPlayersHasPlayed()) {
     const partyMonsterToPlay = partyHandler.toMonsterToPlay(party.value as PartyPlayersToPlay)
     party.value = partyHandler.monsterPlay(partyMonsterToPlay)
+    playerToPlayer.value = party.value?.getFirstPlayer()
   }
 }
+
 onMounted(() => {
   void fetchParty()
 })

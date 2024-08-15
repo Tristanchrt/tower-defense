@@ -6,6 +6,7 @@ import { Player } from '@/party/domain/Player'
 import { Tower } from '@/party/domain/Tower'
 import { PartyToCreate } from '@/party/domain/PartyToCreate'
 import { Monster } from '@/party/domain/Monster'
+import { PartyEvents } from '@/party/domain/PartyEvents'
 
 export class PartyFixture {
   static board(): Board {
@@ -102,5 +103,9 @@ export class PartyFixture {
 
   public static partyToCreate() {
     return new PartyToCreate(this.idParty(), this.board(), [this.player1(), this.player2()])
+  }
+
+  public static partyEvents() {
+    return new PartyEvents()
   }
 }

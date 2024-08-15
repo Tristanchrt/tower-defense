@@ -29,11 +29,11 @@ export class PartyPlayersToPlay implements PartyPlay {
     return this.round
   }
 
-  public getBoard(): Board {
+  getBoard(): Board {
     return this.board
   }
 
-  public getPlayers(): Player[] {
+  getPlayers(): Player[] {
     return this.players
   }
 

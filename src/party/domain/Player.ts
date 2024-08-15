@@ -3,7 +3,7 @@ export class Player {
     this.name = name
   }
 
-  public getName(): string {
+  getName(): string {
     return this.name
   }
 }

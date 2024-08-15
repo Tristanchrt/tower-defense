@@ -75,7 +75,7 @@ describe('Party Handler', () => {
 
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwoWithTowers()
 
-    vi.spyOn(partyMonstersToPlay, 'generateMonsters').mockReturnValue(new Monster(1, 1))
+    vi.spyOn(partyMonstersToPlay, 'generateMonster').mockReturnValue(new Monster(1, 1))
 
     const party = partyHandler.monsterPlay(partyMonstersToPlay)
 
