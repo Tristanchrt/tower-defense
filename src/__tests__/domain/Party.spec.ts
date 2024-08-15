@@ -57,7 +57,7 @@ describe('Party', () => {
   test('Should run a wave for PartyMonsterToPlay and move monster to the next x', () => {
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwo()
     const monster = PartyFixture.monsterOne(0, 4)
-    vi.spyOn(partyMonstersToPlay, 'generateMonsters').mockReturnValue(monster);
+    vi.spyOn(partyMonstersToPlay, 'generateMonsters').mockReturnValue(monster)
     partyMonstersToPlay.waveMonster()
     partyMonstersToPlay.waveMonster()
     expect(monster.x).toEqual(1)
@@ -65,22 +65,22 @@ describe('Party', () => {
 
   test('Should display Tower in the board for a PartyPlayersToPlay', () => {
     const partyPlayersToPlay = PartyFixture.partyPlayersToPlayRoundOne()
-    partyPlayersToPlay.addTower(PartyFixture.towerToAddPlayer1(0,0))
+    partyPlayersToPlay.addTower(PartyFixture.towerToAddPlayer1(0, 0))
     const board = partyPlayersToPlay.display()
-    expect(board.getMatrix()[0][0]).toStrictEqual(PartyFixture.towerToAddPlayer1(0,0))
+    expect(board.getMatrix()[0][0]).toStrictEqual(PartyFixture.towerToAddPlayer1(0, 0))
   })
 
   test('Should display Tower and Monster in the board for a PartyMonsterToPlay', () => {
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwoWithTower()
     partyMonstersToPlay.waveMonster()
     const board = partyMonstersToPlay.display()
-    expect(board.getMatrix()[0][0]).toStrictEqual(PartyFixture.towerToAddPlayer1(0,0))
+    expect(board.getMatrix()[0][0]).toStrictEqual(PartyFixture.towerToAddPlayer1(0, 0))
   })
 
   test('Should tower searching for monster and kill it', () => {
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwoWithTower()
 
-    vi.spyOn(partyMonstersToPlay, 'generateMonsters').mockReturnValue(new Monster(1,1));
+    vi.spyOn(partyMonstersToPlay, 'generateMonsters').mockReturnValue(new Monster(1, 1))
 
     partyMonstersToPlay.waveMonster()
     partyMonstersToPlay.waveTowers()
@@ -91,7 +91,7 @@ describe('Party', () => {
   test('Should tower searching for monster and find nothing', () => {
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwoWithTower()
 
-    vi.spyOn(partyMonstersToPlay, 'generateMonsters').mockReturnValue(new Monster(2,2));
+    vi.spyOn(partyMonstersToPlay, 'generateMonsters').mockReturnValue(new Monster(2, 2))
 
     partyMonstersToPlay.waveMonster()
     partyMonstersToPlay.waveTowers()
@@ -100,7 +100,7 @@ describe('Party', () => {
 
   test('Should party do a complete wave', () => {
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwoWithTowers()
-    vi.spyOn(partyMonstersToPlay, 'generateMonsters').mockReturnValue(new Monster(1,1));
+    vi.spyOn(partyMonstersToPlay, 'generateMonsters').mockReturnValue(new Monster(1, 1))
 
     partyMonstersToPlay.wavePlay()
     expect(partyMonstersToPlay.getTowers()[0].getMunitions()).toEqual(0)

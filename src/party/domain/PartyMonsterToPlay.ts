@@ -60,10 +60,10 @@ export class PartyMonstersToPlay implements PartyPlay {
   waveTowers(): void {
     for (const tower of this.towers) {
       for (const monster of this.monsters) {
-        if(this.hasRange(tower, monster) && tower.hasMunitions()) {
-          const index = this.monsters.indexOf(monster);
+        if (this.hasRange(tower, monster) && tower.hasMunitions()) {
+          const index = this.monsters.indexOf(monster)
           if (index > -1) {
-            this.monsters.splice(index, 1);
+            this.monsters.splice(index, 1)
             tower.removeMunitions()
           }
           break
@@ -81,10 +81,10 @@ export class PartyMonstersToPlay implements PartyPlay {
   }
 
   private hasRange(tower: Tower, monster: Monster): boolean {
-    const range =  1
-    const withinRangeX = Math.abs(tower.x - monster.x) <= range;
-    const withinRangeY = Math.abs(tower.y - monster.y) <= range;
-    return withinRangeX && withinRangeY;
+    const range = 1
+    const withinRangeX = Math.abs(tower.x - monster.x) <= range
+    const withinRangeY = Math.abs(tower.y - monster.y) <= range
+    return withinRangeX && withinRangeY
   }
 
   generateMonsters(): Monster {
@@ -92,6 +92,6 @@ export class PartyMonstersToPlay implements PartyPlay {
   }
 
   private randomY() {
-    return Math.floor(Math.random() * this.getBoard().getHeight());
+    return Math.floor(Math.random() * this.getBoard().getHeight())
   }
 }

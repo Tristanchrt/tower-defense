@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="board">
-      <div class="row" :key="row"é v-for="row in props.board.getMatrix()">
+      <div class="row" :key="row" v-for="row in props.board.getMatrix()">
         <div class="height" :key="cell" v-for="cell in row">
-          <span class="cell">
+          <span class="cell tooltip">
             {{ cellType(cell) }}
           </span>
         </div>

@@ -16,7 +16,7 @@ export class Board {
   private initMatrix(width: number, height: number): Cell[][] {
     return Array.from({ length: width }, (_, i) =>
       Array.from({ length: height }, (_, j) => new Floor(i, j))
-    );
+    )
   }
 
   public display(pieces: Cell[]): Board {

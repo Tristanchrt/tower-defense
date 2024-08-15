@@ -15,8 +15,8 @@ describe('Board', () => {
 
   test('Should display all pieces from parameters list', () => {
     const board = PartyFixture.board()
-    const pieces = [PartyFixture.towerToAddPlayer1(0,0)]
+    const pieces = [PartyFixture.towerToAddPlayer1(0, 0)]
     board.display(pieces)
-    expect(board.matrix[0][0]).toStrictEqual(PartyFixture.towerToAddPlayer1(0,0))
+    expect(board.matrix[0][0]).toStrictEqual(PartyFixture.towerToAddPlayer1(0, 0))
   })
 })

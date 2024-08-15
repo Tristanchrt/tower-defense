@@ -79,11 +79,24 @@ describe('Party management', () => {
     cy.contains('button', 'Add tower').click()
     cy.get('span.cell').first().should('have.text', 'T').and('be.visible');
 
+    cy.get('.tower-positions').first().should('have.text', '0,0').and('be.visible');
+    cy.get('.tower-munitions').first().should('have.text', '5').and('be.visible');
+    cy.get('.tower-details').first().find('.tower-munitions').then(($munition) => {
+      const munitionsValue = parseInt($munition.text());
+      if (munitionsValue > 0) {
+        cy.wrap($munition).should('have.class', 'has-munitions');
+      }
+    });
+
     cy.get('div.player .player-turn').first().should('have.text', 'N')
     cy.get('div.player .player-turn').last().should('have.text', 'Y')
 
     cy.get('.tower-x').type('1');
     cy.get('.tower-y').type('1');
+
+    cy.get('.tower-positions').last().should('have.text', '0,0').and('be.visible');
+    cy.get('.tower-munitions').last().should('have.text', '5').and('be.visible');
+    cy.get('.tower-munitions').last().should('have.class', 'has-munitions')
 
     cy.contains('button', 'Add tower').click()
     cy.contains('h3', 'Round #2')

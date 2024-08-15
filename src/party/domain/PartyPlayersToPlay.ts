@@ -50,7 +50,7 @@ export class PartyPlayersToPlay implements PartyPlay {
   }
 
   public addTower(tower: Tower) {
-    if(!this.getBoard().isInMatrix(tower.x, tower.y)){
+    if (!this.getBoard().isInMatrix(tower.x, tower.y)) {
       throw new Error('Not in the matrix area')
     }
     this.towers.push(tower)

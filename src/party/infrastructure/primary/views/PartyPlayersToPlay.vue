@@ -6,7 +6,11 @@
       <BoardCard :board="party.display()" />
     </div>
     <PlayersList :players="party.getPlayers()" :player-turn="playerToPlayer as Player" />
-    <AddTowerCard @add-tower="onAddTower" />
+    <div class="tower-lifecycle">
+      <AddTowerCard @add-tower="onAddTower" />
+      <div class="break-1"/>
+      <TowersList :towers="party.getTowers()"/>
+    </div>
   </div>
 </template>
 
@@ -21,6 +25,7 @@ import type { PartyPlayersToPlay } from '@/party/domain/PartyPlayersToPlay'
 import { Tower } from '@/party/domain/Tower'
 import { Player } from '@/party/domain/Player'
 import type { Cell } from '@/party/domain/Cell'
+import TowersList from '@/party/infrastructure/primary/components/TowersList.vue'
 
 const party = ref<PartyPlayersToPlay>()
 const playerToPlayer = ref<Player>()
@@ -38,7 +43,7 @@ const fetchParty = () => {
 const isAllPlayersHasPlayed = (): boolean =>
   Object.keys(playersPlayed.value).length === party.value?.getPlayers().length
 
-const createTower = (x: number, y: number, player: Player) => new Tower(x, y, 10, player)
+const createTower = (x: number, y: number, player: Player) => new Tower(x, y, 5, player)
 
 const onAddTower = ({ x, y }: Cell) => {
   playersPlayed.value[playerToPlayer.value!.getName()] = playerToPlayer.value!
@@ -60,5 +65,9 @@ onMounted(() => {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.tower-lifecycle {
+  display: flex;
+  flex-direction: column;
 }
 </style>

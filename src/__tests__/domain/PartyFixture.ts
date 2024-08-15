@@ -41,7 +41,7 @@ export class PartyFixture {
       this.idParty(),
       PartyFixture.board(),
       [this.player1(), this.player2()],
-      [PartyFixture.towerToAddPlayer1(0,0)],
+      [PartyFixture.towerToAddPlayer1(0, 0)],
       2
     )
   }
@@ -51,7 +51,7 @@ export class PartyFixture {
       this.idParty(),
       PartyFixture.board(),
       [this.player1(), this.player2()],
-      [PartyFixture.towerToAddPlayer1(0,0), PartyFixture.towerToAddPlayer1(3,0)],
+      [PartyFixture.towerToAddPlayer1(0, 0), PartyFixture.towerToAddPlayer1(3, 0)],
       2
     )
   }
