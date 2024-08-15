@@ -54,7 +54,7 @@ export class PartyMonstersToPlay implements PartyPlay {
     return this.towers
   }
 
-  toPlayersToPlay() {
+  toPlayersToPlay(): PartyPlayersToPlay {
     return new PartyPlayersToPlay(this.id, this.board, this.players, this.towers, this.round)
   }
 
@@ -71,29 +71,32 @@ export class PartyMonstersToPlay implements PartyPlay {
   }
 
   private waveMonster(): void {
-    this.monsters.forEach(monster => monster.x += 1);
+    this.monsters.forEach((monster) => (monster.x += 1))
     this.monsters.push(this.generateMonster())
   }
 
   private waveTowers(): void {
-    this.towers.forEach(tower => {
-      this.monsters.forEach((monster, index) => {
-        if (this.hasRange(tower, monster) && tower.hasMunitions()) {
-          this.monsters.splice(index, 1);
-          tower.removeMunitions();
-          return;
-        }
-      });
-    });
+    this.towers.forEach((tower) => {
+      this.waveTower(tower)
+    })
+  }
+
+  private waveTower(tower: Tower): void {
+    this.monsters.forEach((monster, index) => {
+      if (this.hasRange(tower, monster) && tower.hasMunitions()) {
+        this.monsters.splice(index, 1)
+        tower.removeMunitions()
+        return
+      }
+    })
   }
 
   private hasRange(tower: Tower, monster: Monster): boolean {
-    const range = 1;
-    return Math.abs(tower.x - monster.x) <= range && Math.abs(tower.y - monster.y) <= range;
+    const range = 1
+    return Math.abs(tower.x - monster.x) <= range && Math.abs(tower.y - monster.y) <= range
   }
 
-  private generateMonster() {
+  private generateMonster(): Monster {
     return this.monsterGenerator.generate()
   }
-
 }

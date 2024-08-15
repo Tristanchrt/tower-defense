@@ -52,7 +52,6 @@ describe('Party', () => {
     expect(board.getMatrix()[0][0]).toStrictEqual(PartyFixture.towerToAddPlayer1(0, 0))
   })
 
-
   test('Should tower searching for monsters and kill some', () => {
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwoWithTowers()
     vi.spyOn(partyMonstersToPlay, 'generateMonster').mockReturnValue(new Monster(1, 1))
@@ -69,5 +68,4 @@ describe('Party', () => {
     const party = partyMonstersToPlay.play()
     expect(party).toStrictEqual(PartyFixture.partyPlayersToPlayRoundTwoWithTowers())
   })
-
 })

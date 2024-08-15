@@ -6,12 +6,10 @@ export enum ActionEvent {
 }
 
 export class EventParty {
-  id: string
   action: ActionEvent
   cell: Cell
 
-  constructor(id: string, action: ActionEvent, cell: Cell) {
-    this.id = id
+  constructor(action: ActionEvent, cell: Cell) {
     this.action = action
     this.cell = cell
   }

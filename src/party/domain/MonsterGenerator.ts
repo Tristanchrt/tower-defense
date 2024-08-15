@@ -7,11 +7,10 @@ export class MonsterGenerator {
   }
 
   generate(): Monster {
-    return new Monster(0, this.randomY());
+    return new Monster(0, this.randomY())
   }
 
   private randomY(): number {
-    return Math.floor(Math.random() * this.yMax);
+    return Math.floor(Math.random() * this.yMax)
   }
-
 }

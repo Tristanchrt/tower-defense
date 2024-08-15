@@ -1,17 +1,14 @@
 import { EventParty } from '@/party/domain/EventParty'
 
 export class PartyEvents {
-  events: Record<string, EventParty[]> = {}
+  events: EventParty[] = []
   constructor() {}
 
-  getEvents(party: string): EventParty[] {
-    return this.events[party] || [];
+  getEvents(): EventParty[] {
+    return this.events
   }
 
   saveEvent(eventParty: EventParty) {
-    if (!this.events[eventParty.id]) {
-      this.events[eventParty.id] = [];
-    }
-    this.events[eventParty.id].push(eventParty);
+    this.events.push(eventParty)
   }
 }
