@@ -53,6 +53,7 @@ const onAddTower = ({ x, y }: Cell) => {
     const partyMonsterToPlay = partyHandler.toMonsterToPlay(party.value as PartyPlayersToPlay)
     party.value = partyHandler.monsterPlay(partyMonsterToPlay)
     playerToPlayer.value = party.value?.getFirstPlayer()
+    playersPlayed.value = {}
   }
 }
 

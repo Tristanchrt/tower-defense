@@ -54,7 +54,6 @@ describe('Party', () => {
     expect(board.getMatrix()[0][0]).toStrictEqual(PartyFixture.towerToAddPlayer1(0, 0))
   })
 
-
   test('Should party play with a complete wave with monsters and towers and return a PartyPlayersToPlay', () => {
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwoWithTowers()
 

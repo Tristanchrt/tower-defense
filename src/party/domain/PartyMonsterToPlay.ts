@@ -70,25 +70,43 @@ export class PartyMonstersToPlay implements PartyPlay {
   }
 
   displayEvents(): void {
-    const events = this.partyEvents.getEvents();
-    events.forEach(event => console.log(event.action));
+    const events = this.partyEvents.getEvents()
+    events.forEach((event) => console.log(event.action))
   }
 
   private waveMonster(): void {
-    this.monsters.forEach(monster => {
-      const oldX = monster.x;
-      const oldY = monster.y;
+    this.monsters.forEach((monster) => {
+      const oldX = monster.x
+      const oldY = monster.y
       monster.x += 1
-      this.partyEvents.saveEvent(new EventParty(`Monster ${monster.id} moved from (${oldX}, ${oldY}) to (${monster.x}, ${monster.y})`, monster, this.round));
-    });
-    const newMonster = this.monsterGenerator.generate();
-    this.monsters.push(newMonster);
-    this.partyEvents.saveEvent(new EventParty(`Monster ${newMonster.id} created to (${newMonster.x}, ${newMonster.y})`, newMonster, this.round));
+      this.partyEvents.saveEvent(
+        new EventParty(
+          `Monster ${monster.id} moved from (${oldX}, ${oldY}) to (${monster.x}, ${monster.y})`,
+          monster,
+          this.round
+        )
+      )
+    })
+    const newMonster = this.monsterGenerator.generate()
+    this.monsters.push(newMonster)
+    this.partyEvents.saveEvent(
+      new EventParty(
+        `Monster ${newMonster.id} created to (${newMonster.x}, ${newMonster.y})`,
+        newMonster,
+        this.round
+      )
+    )
   }
 
   private waveTowers(): void {
     this.towers.forEach((tower: Tower) => {
-      this.partyEvents.saveEvent(new EventParty(`Tower at (${tower.x}, ${tower.y}) ${tower.getMunitions()} waiting to shot`, tower, this.round));
+      this.partyEvents.saveEvent(
+        new EventParty(
+          `Tower at (${tower.x}, ${tower.y}) ${tower.getMunitions()} waiting to shot`,
+          tower,
+          this.round
+        )
+      )
       this.waveTower(tower)
     })
   }
@@ -98,8 +116,20 @@ export class PartyMonstersToPlay implements PartyPlay {
       if (this.hasRange(tower, monster) && tower.hasMunitions()) {
         this.monsters.splice(index, 1)
         tower.removeMunitions()
-        this.partyEvents.saveEvent(new EventParty(`Monster ${monster.id} at (${monster.x}, ${monster.y}) was hit by tower at (${tower.x}, ${tower.y})`, monster, this.round));
-        this.partyEvents.saveEvent(new EventParty(`Tower at (${tower.x}, ${tower.y}), munitions: ${tower.getMunitions()} remained`, tower, this.round));
+        this.partyEvents.saveEvent(
+          new EventParty(
+            `Monster ${monster.id} at (${monster.x}, ${monster.y}) was hit by tower at (${tower.x}, ${tower.y})`,
+            monster,
+            this.round
+          )
+        )
+        this.partyEvents.saveEvent(
+          new EventParty(
+            `Tower at (${tower.x}, ${tower.y}), munitions: ${tower.getMunitions()} remained`,
+            tower,
+            this.round
+          )
+        )
         return
       }
     })
