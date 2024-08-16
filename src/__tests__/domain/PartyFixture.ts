@@ -34,7 +34,8 @@ export class PartyFixture {
       [this.player1(), this.player2()],
       [],
       2,
-      this.monsterGenerator()
+      this.monsterGenerator(),
+      this.partyEvents()
     )
   }
 
@@ -45,7 +46,8 @@ export class PartyFixture {
       [this.player1(), this.player2()],
       [PartyFixture.towerToAddPlayer1(0, 0)],
       2,
-      this.monsterGenerator()
+      this.monsterGenerator(),
+      this.partyEvents()
     )
   }
 
@@ -56,7 +58,8 @@ export class PartyFixture {
       [this.player1(), this.player2()],
       [PartyFixture.towerToAddPlayer1(0, 0), PartyFixture.towerToAddPlayer2(3, 0)],
       2,
-      this.monsterGenerator()
+      this.monsterGenerator(),
+      this.partyEvents()
     )
   }
 

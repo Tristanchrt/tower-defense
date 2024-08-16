@@ -4,9 +4,13 @@ import type { PartyCreated } from '@/party/domain/PartyCreated'
 import type { Party } from '@/party/domain/Party'
 import type { PartyPlayersToPlay } from '@/party/domain/PartyPlayersToPlay'
 import type { PartyMonstersToPlay } from '@/party/domain/PartyMonsterToPlay'
+import { EventToSave, type PartyEventsRepository } from '@/party/domain/PartyEventsRepository'
 
 export class PartyHandler {
-  constructor(private partiesRepository: PartiesRepository) {}
+  constructor(
+    private partiesRepository: PartiesRepository,
+    private partyEventsRepository: PartyEventsRepository
+  ) {}
 
   public createParty(partyToCreate: PartyToCreate): PartyCreated {
     const partyCreated = partyToCreate.create()
@@ -35,7 +39,10 @@ export class PartyHandler {
   }
 
   public monsterPlay(party: PartyMonstersToPlay): PartyPlayersToPlay {
-    const partyPlayerToPlay = party.play()
+    party.wavePlay()
+    party.displayEvents()
+    this.partyEventsRepository.saveEventsParty(new EventToSave(party.id, party.getEvents()))
+    const partyPlayerToPlay = party.toPlayersToPlay()
     this.partiesRepository.saveParty(partyPlayerToPlay)
     return partyPlayerToPlay
   }

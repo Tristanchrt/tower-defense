@@ -47,12 +47,6 @@ describe('Party', () => {
     expect(partyPlayersToPlay.getTowers()[0]).toStrictEqual(tower)
   })
 
-  test('Should PartyMonsterToPlay play', () => {
-    const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwo()
-    const partyPlayersToPlay = partyMonstersToPlay.play()
-    expect(partyPlayersToPlay).toStrictEqual(PartyFixture.partyPlayersToPlayRoundTwo())
-  })
-
   test('Should display Tower in the board for a PartyPlayersToPlay', () => {
     const partyPlayersToPlay = PartyFixture.partyPlayersToPlayRoundOne()
     partyPlayersToPlay.addTower(PartyFixture.towerToAddPlayer1(0, 0))
@@ -60,12 +54,12 @@ describe('Party', () => {
     expect(board.getMatrix()[0][0]).toStrictEqual(PartyFixture.towerToAddPlayer1(0, 0))
   })
 
+
   test('Should party play with a complete wave with monsters and towers and return a PartyPlayersToPlay', () => {
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwoWithTowers()
 
-    // vi.spyOn(partyMonstersToPlay, 'handleEvent')
-
-    const party = partyMonstersToPlay.play()
+    partyMonstersToPlay.wavePlay()
+    const party = partyMonstersToPlay.toPlayersToPlay()
     expect(party).toStrictEqual(PartyFixture.partyPlayersToPlayRoundTwoWithTowers())
   })
 })

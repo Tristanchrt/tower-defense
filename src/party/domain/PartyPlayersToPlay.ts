@@ -4,6 +4,7 @@ import { PartyMonstersToPlay } from './PartyMonsterToPlay'
 import { Player } from './Player'
 import { type Tower } from '@/party/domain/Tower'
 import { MonsterGenerator } from '@/party/domain/MonsterGenerator'
+import { PartyEvents } from '@/party/domain/PartyEvents'
 
 export class PartyPlayersToPlay implements PartyPlay {
   id: string
@@ -53,7 +54,8 @@ export class PartyPlayersToPlay implements PartyPlay {
       this.players,
       this.towers,
       this.round + 1,
-      new MonsterGenerator(10, (max) => Math.floor(Math.random() * max))
+      new MonsterGenerator(10, (max) => Math.floor(Math.random() * max)),
+      new PartyEvents()
     )
   }
 

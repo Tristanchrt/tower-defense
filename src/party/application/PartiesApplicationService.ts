@@ -5,12 +5,16 @@ import { RestPartiesRepository } from '@/party/infrastructure/secondary/RestPart
 import type { Party } from '@/party/domain/Party'
 import type { PartyPlayersToPlay } from '@/party/domain/PartyPlayersToPlay'
 import type { PartyMonstersToPlay } from '@/party/domain/PartyMonsterToPlay'
+import type { RestPartyEventsRepository } from '@/party/infrastructure/secondary/RestPartyEventsRepository'
 
 export class PartiesApplicationService {
   private partyHandler: PartyHandler
 
-  constructor(private restPartiesRepository: RestPartiesRepository) {
-    this.partyHandler = new PartyHandler(restPartiesRepository)
+  constructor(
+    private restPartiesRepository: RestPartiesRepository,
+    private restPartyEventsRepository: RestPartyEventsRepository
+  ) {
+    this.partyHandler = new PartyHandler(restPartiesRepository, restPartyEventsRepository)
   }
 
   public create(party: PartyToCreate): PartyCreated {

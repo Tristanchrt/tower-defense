@@ -3,13 +3,21 @@ import { describe, expect, test, vi } from 'vitest'
 import type { PartiesRepository } from '@/party/domain/PartiesRepository'
 import { PartyFixture } from '@/__tests__/domain/PartyFixture'
 import { omitFields } from '@/__tests__/assertion'
+import type { PartyEventsRepository } from '@/party/domain/PartyEventsRepository'
 
 describe('Party Handler', () => {
+  const mockPartiesEventRepository = {
+    saveEventsParty: vi.fn()
+  }
+
   test('Should create party when calling creator', () => {
     const mockPartiesRepository = {
       saveParty: vi.fn()
     }
-    const partyHandler = new PartyHandler(mockPartiesRepository as unknown as PartiesRepository)
+    const partyHandler = new PartyHandler(
+      mockPartiesRepository as unknown as PartiesRepository,
+      mockPartiesEventRepository as unknown as PartyEventsRepository
+    )
 
     const createdParty = partyHandler.createParty(PartyFixture.partyToCreate())
 
@@ -23,7 +31,10 @@ describe('Party Handler', () => {
     const mockPartiesRepository = {
       getParties: vi.fn().mockReturnValue([party])
     }
-    const partyHandler = new PartyHandler(mockPartiesRepository as unknown as PartiesRepository)
+    const partyHandler = new PartyHandler(
+      mockPartiesRepository as unknown as PartiesRepository,
+      mockPartiesEventRepository as unknown as PartyEventsRepository
+    )
 
     const parties = partyHandler.getParties()
     expect(mockPartiesRepository.getParties).toHaveBeenCalled()
@@ -34,7 +45,10 @@ describe('Party Handler', () => {
     const mockPartiesRepository = {
       saveParty: vi.fn()
     }
-    const partyHandler = new PartyHandler(mockPartiesRepository as unknown as PartiesRepository)
+    const partyHandler = new PartyHandler(
+      mockPartiesRepository as unknown as PartiesRepository,
+      mockPartiesEventRepository as unknown as PartyEventsRepository
+    )
 
     const partyPlayersToPlayer = partyHandler.toCreateParty(PartyFixture.partyCreated())
 
@@ -47,7 +61,10 @@ describe('Party Handler', () => {
     const mockPartiesRepository = {
       getPartyById: vi.fn().mockReturnValue(party)
     }
-    const partyHandler = new PartyHandler(mockPartiesRepository as unknown as PartiesRepository)
+    const partyHandler = new PartyHandler(
+      mockPartiesRepository as unknown as PartiesRepository,
+      mockPartiesEventRepository as unknown as PartyEventsRepository
+    )
 
     const parties = partyHandler.getPartyById('id')
     expect(mockPartiesRepository.getPartyById).toHaveBeenCalled()
@@ -58,7 +75,10 @@ describe('Party Handler', () => {
     const mockPartiesRepository = {
       saveParty: vi.fn()
     }
-    const partyHandler = new PartyHandler(mockPartiesRepository as unknown as PartiesRepository)
+    const partyHandler = new PartyHandler(
+      mockPartiesRepository as unknown as PartiesRepository,
+      mockPartiesEventRepository as unknown as PartyEventsRepository
+    )
 
     const partyMonsterToPlay = partyHandler.toMonsterParty(
       PartyFixture.partyPlayersToPlayRoundOne()
@@ -78,12 +98,18 @@ describe('Party Handler', () => {
     const mockPartiesRepository = {
       saveParty: vi.fn()
     }
-    const partyHandler = new PartyHandler(mockPartiesRepository as unknown as PartiesRepository)
+
+    const partyHandler = new PartyHandler(
+      mockPartiesRepository as unknown as PartiesRepository,
+      mockPartiesEventRepository as unknown as PartyEventsRepository
+    )
 
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwoWithTowers()
 
     const party = partyHandler.monsterPlay(partyMonstersToPlay)
 
     expect(party).toStrictEqual(PartyFixture.partyPlayersToPlayRoundTwoWithTowers())
+    expect(mockPartiesRepository.saveParty).toHaveBeenCalled()
+    expect(mockPartiesEventRepository.saveEventsParty).toHaveBeenCalled()
   })
 })
