@@ -46,10 +46,6 @@ export class PartyMonstersToPlay implements PartyPlay {
     return this.players
   }
 
-  getMonsters(): Monster[] {
-    return this.monsters
-  }
-
   getTowers(): Tower[] {
     return this.towers
   }
@@ -58,17 +54,24 @@ export class PartyMonstersToPlay implements PartyPlay {
     return new PartyPlayersToPlay(this.id, this.board, this.players, this.towers, this.round)
   }
 
+  // TODO to remove and move to domain service
   play(): PartyPlayersToPlay {
     this.wavePlay()
     return this.toPlayersToPlay()
   }
 
-  wavePlay(): void {
+  private wavePlay(): void {
     for (let pas = 0; pas < this.wave; pas++) {
       this.waveMonster()
       this.waveTowers()
     }
   }
+
+  // private displayEvents(): void {
+  //   const events = this.eventDispatcher.getEvents();
+  //   events.forEach(event => console.log(event.message));
+  //   this.eventDispatcher.clearEvents();
+  // }
 
   private waveMonster(): void {
     this.monsters.forEach((monster) => (monster.x += 1))
