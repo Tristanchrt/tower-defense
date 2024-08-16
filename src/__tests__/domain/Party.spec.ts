@@ -1,6 +1,6 @@
 import { PartyFixture } from './PartyFixture'
 import { describe, expect, test, vi } from 'vitest'
-import { Monster } from '@/party/domain/Monster'
+import { omitFields } from '@/__tests__/assertion'
 
 describe('Party', () => {
   test('Should init Party object', () => {
@@ -16,11 +16,19 @@ describe('Party', () => {
 
   test('Should PartyPlayersToPlay change to PartyMonsterToPlay', () => {
     const partyPlayersToPlay = PartyFixture.partyPlayersToPlayRoundOne()
-    const partyMonstersToPlay = partyPlayersToPlay.toMonsterToPlay()
-    expect(partyMonstersToPlay).toStrictEqual(PartyFixture.partyMonstersToPlayRoundTwo())
+    const partyMonsterToPlay = partyPlayersToPlay.toMonsterToPlay()
+
+    const fieldsToIgnore = ['monsterGenerator']
+    const partyExpectedNoRandom = omitFields(partyMonsterToPlay, fieldsToIgnore)
+    const partyFixtureNoRandom = omitFields(
+      PartyFixture.partyMonstersToPlayRoundTwo(),
+      fieldsToIgnore
+    )
+
+    expect(partyExpectedNoRandom).toStrictEqual(partyFixtureNoRandom)
   })
 
-  test('Should PartyMonsterToPlay change to PartyPlayersToPlay.vue', () => {
+  test('Should PartyMonsterToPlay change to PartyPlayersToPlay', () => {
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwo()
     const partyPlayersToPlay = partyMonstersToPlay.toPlayersToPlay()
     expect(partyPlayersToPlay).toStrictEqual(PartyFixture.partyPlayersToPlayRoundTwo())
@@ -54,7 +62,6 @@ describe('Party', () => {
 
   test('Should tower searching for monsters and kill some', () => {
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwoWithTowers()
-    vi.spyOn(partyMonstersToPlay, 'generateMonster').mockReturnValue(new Monster(1, 1))
 
     partyMonstersToPlay.wavePlay()
     expect(partyMonstersToPlay.getTowers()[0].getMunitions()).toEqual(0)
@@ -64,7 +71,7 @@ describe('Party', () => {
 
   test('Should party play with a complete wave with monsters and towers and return a PartyPlayersToPlay', () => {
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwoWithTowers()
-    vi.spyOn(partyMonstersToPlay, 'generateMonster').mockReturnValue(new Monster(1, 1))
+
     const party = partyMonstersToPlay.play()
     expect(party).toStrictEqual(PartyFixture.partyPlayersToPlayRoundTwoWithTowers())
   })

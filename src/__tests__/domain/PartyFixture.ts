@@ -5,8 +5,8 @@ import { PartyPlayersToPlay } from '@/party/domain/PartyPlayersToPlay'
 import { Player } from '@/party/domain/Player'
 import { Tower } from '@/party/domain/Tower'
 import { PartyToCreate } from '@/party/domain/PartyToCreate'
-import { Monster } from '@/party/domain/Monster'
 import { PartyEvents } from '@/party/domain/PartyEvents'
+import { MonsterGenerator } from '@/party/domain/MonsterGenerator'
 
 export class PartyFixture {
   static board(): Board {
@@ -33,7 +33,8 @@ export class PartyFixture {
       PartyFixture.board(),
       [this.player1(), this.player2()],
       [],
-      2
+      2,
+      this.monsterGenerator()
     )
   }
 
@@ -43,7 +44,8 @@ export class PartyFixture {
       PartyFixture.board(),
       [this.player1(), this.player2()],
       [PartyFixture.towerToAddPlayer1(0, 0)],
-      2
+      2,
+      this.monsterGenerator()
     )
   }
 
@@ -53,7 +55,8 @@ export class PartyFixture {
       PartyFixture.board(),
       [this.player1(), this.player2()],
       [PartyFixture.towerToAddPlayer1(0, 0), PartyFixture.towerToAddPlayer2(3, 0)],
-      2
+      2,
+      this.monsterGenerator()
     )
   }
 
@@ -85,10 +88,6 @@ export class PartyFixture {
     return new Player('player1')
   }
 
-  public static monsterOne(x: number, y: number): Monster {
-    return new Monster(x, y)
-  }
-
   public static player2(): Player {
     return new Player('player2')
   }
@@ -107,5 +106,9 @@ export class PartyFixture {
 
   public static partyEvents() {
     return new PartyEvents()
+  }
+
+  public static monsterGenerator() {
+    return new MonsterGenerator(10, (max) => 1)
   }
 }

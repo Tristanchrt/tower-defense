@@ -10,20 +10,20 @@ export class PartyMonstersToPlay implements PartyPlay {
   id: string
   wave: number = 10
   monsters: Monster[] = []
-  private monsterGenerator: MonsterGenerator
   constructor(
     id: string,
     private readonly board: Board,
     private readonly players: Player[],
     private towers: Tower[],
-    private readonly round: number
+    private readonly round: number,
+    private monsterGenerator: MonsterGenerator
   ) {
     this.id = id
     this.board = board
     this.players = players
     this.towers = towers
     this.round = round
-    this.monsterGenerator = new MonsterGenerator(this.getHeightBoard())
+    this.monsterGenerator = monsterGenerator
   }
 
   display(): Board {
@@ -72,7 +72,7 @@ export class PartyMonstersToPlay implements PartyPlay {
 
   private waveMonster(): void {
     this.monsters.forEach((monster) => (monster.x += 1))
-    this.monsters.push(this.generateMonster())
+    this.monsters.push(this.monsterGenerator.generate())
   }
 
   private waveTowers(): void {
@@ -94,9 +94,5 @@ export class PartyMonstersToPlay implements PartyPlay {
   private hasRange(tower: Tower, monster: Monster): boolean {
     const range = 1
     return Math.abs(tower.x - monster.x) <= range && Math.abs(tower.y - monster.y) <= range
-  }
-
-  private generateMonster(): Monster {
-    return this.monsterGenerator.generate()
   }
 }

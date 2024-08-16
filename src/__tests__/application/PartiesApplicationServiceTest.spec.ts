@@ -2,7 +2,7 @@ import { describe, expect, test, vi } from 'vitest'
 import { PartyFixture } from '@/__tests__/domain/PartyFixture'
 import { PartiesApplicationService } from '@/party/application/PartiesApplicationService'
 import type { RestPartiesRepository } from '@/party/infrastructure/secondary/RestPartiesRepository'
-import { Monster } from '@/party/domain/Monster'
+import { omitFields } from '@/__tests__/assertion'
 
 describe('Parties application service test', () => {
   test('Should create a party', () => {
@@ -77,7 +77,14 @@ describe('Parties application service test', () => {
       PartyFixture.partyPlayersToPlayRoundOne()
     )
 
-    expect(partyMonsterToPlay).toStrictEqual(PartyFixture.partyMonstersToPlayRoundTwo())
+    const fieldsToIgnore = ['monsterGenerator']
+    const partyExpectedNoRandom = omitFields(partyMonsterToPlay, fieldsToIgnore)
+    const partyFixtureNoRandom = omitFields(
+      PartyFixture.partyMonstersToPlayRoundTwo(),
+      fieldsToIgnore
+    )
+
+    expect(partyExpectedNoRandom).toStrictEqual(partyFixtureNoRandom)
   })
 
   test('Should PartyMonsterToPlay play and return PartyPlayersToPlayer', () => {
@@ -86,8 +93,6 @@ describe('Parties application service test', () => {
     }
 
     const partyMonstersToPlay = PartyFixture.partyMonstersToPlayRoundTwoWithTowers()
-
-    vi.spyOn(partyMonstersToPlay, 'generateMonster').mockReturnValue(new Monster(1, 1))
 
     const partiesApplicationService = new PartiesApplicationService(
       mockRestPartiesRepository as unknown as RestPartiesRepository
