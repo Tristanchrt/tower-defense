@@ -10,7 +10,7 @@ import type { PartyEvents } from '@/party/domain/PartyEvents'
 
 export class PartyMonstersToPlay implements PartyPlay {
   id: string
-  wave: number = 10
+  wave: number = 5
   monsters: Monster[] = []
   constructor(
     id: string,
@@ -62,6 +62,7 @@ export class PartyMonstersToPlay implements PartyPlay {
     for (let pas = 0; pas < this.wave; pas++) {
       this.waveMonster()
       this.waveTowers()
+      this.removeDefeatedMonsters()
     }
   }
 
@@ -74,11 +75,15 @@ export class PartyMonstersToPlay implements PartyPlay {
     events.forEach((event) => console.log(event.action))
   }
 
+  private removeDefeatedMonsters(): void {
+    this.monsters = this.monsters.filter(monster => monster.isAlive());
+  }
+
   private waveMonster(): void {
-    this.monsters.forEach((monster) => {
+    this.monsters.forEach((monster: Monster) => {
       const oldX = monster.x
       const oldY = monster.y
-      monster.x += 1
+      monster.move()
       this.partyEvents.saveEvent(
         new EventParty(
           `Monster ${monster.id} moved from (${oldX}, ${oldY}) to (${monster.x}, ${monster.y})`,
@@ -107,36 +112,7 @@ export class PartyMonstersToPlay implements PartyPlay {
           this.round
         )
       )
-      this.waveTower(tower)
+      tower.attack(this.monsters)
     })
-  }
-
-  private waveTower(tower: Tower): void {
-    this.monsters.forEach((monster, index) => {
-      if (this.hasRange(tower, monster) && tower.hasMunitions()) {
-        this.monsters.splice(index, 1)
-        tower.removeMunitions()
-        this.partyEvents.saveEvent(
-          new EventParty(
-            `Monster ${monster.id} at (${monster.x}, ${monster.y}) was hit by tower at (${tower.x}, ${tower.y})`,
-            monster,
-            this.round
-          )
-        )
-        this.partyEvents.saveEvent(
-          new EventParty(
-            `Tower at (${tower.x}, ${tower.y}), munitions: ${tower.getMunitions()} remained`,
-            tower,
-            this.round
-          )
-        )
-        return
-      }
-    })
-  }
-
-  private hasRange(tower: Tower, monster: Monster): boolean {
-    const range = 1
-    return Math.abs(tower.x - monster.x) <= range && Math.abs(tower.y - monster.y) <= range
   }
 }
