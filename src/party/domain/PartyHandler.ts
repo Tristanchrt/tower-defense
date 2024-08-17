@@ -5,6 +5,7 @@ import type { Party } from '@/party/domain/Party'
 import type { PartyPlayersToPlay } from '@/party/domain/PartyPlayersToPlay'
 import type { PartyMonstersToPlay } from '@/party/domain/PartyMonsterToPlay'
 import { EventToSave, type PartyEventsRepository } from '@/party/domain/PartyEventsRepository'
+import type { Tower } from '@/party/domain/Tower'
 
 export class PartyHandler {
   constructor(
@@ -12,38 +13,44 @@ export class PartyHandler {
     private partyEventsRepository: PartyEventsRepository
   ) {}
 
-  public createParty(partyToCreate: PartyToCreate): PartyCreated {
+  createParty(partyToCreate: PartyToCreate): PartyCreated {
     const partyCreated = partyToCreate.create()
     this.partiesRepository.saveParty(partyCreated)
     return partyCreated
   }
 
-  public getParties(): Party[] {
+  getParties(): Party[] {
     return this.partiesRepository.getParties()
   }
 
-  public getPartyById(id: string): Party {
+  getPartyById(id: string): Party {
     return this.partiesRepository.getPartyById(id)
   }
 
-  public toCreateParty(party: PartyCreated): PartyPlayersToPlay {
+  toCreateParty(party: PartyCreated): PartyPlayersToPlay {
     const partyPlayerToPlay = party.toPlayersToPlay()
     this.partiesRepository.saveParty(partyPlayerToPlay)
     return partyPlayerToPlay
   }
 
-  public toMonsterParty(party: PartyPlayersToPlay): PartyMonstersToPlay {
+  toMonsterParty(party: PartyPlayersToPlay): PartyMonstersToPlay {
     const partyMonsterToPlay = party.toMonsterToPlay()
     this.partiesRepository.saveParty(partyMonsterToPlay)
     return partyMonsterToPlay
   }
 
-  public monsterPlay(party: PartyMonstersToPlay): PartyPlayersToPlay {
+  monsterPlay(party: PartyMonstersToPlay): PartyPlayersToPlay {
     party.wavePlay()
     party.displayEvents()
     this.partyEventsRepository.saveEventsParty(new EventToSave(party.id, party.getEvents()))
     const partyPlayerToPlay = party.toPlayersToPlay()
     this.partiesRepository.saveParty(partyPlayerToPlay)
     return partyPlayerToPlay
+  }
+
+  addTowerToParty(partyId: string, tower: Tower) {
+    const party = this.getPartyById(partyId) as PartyPlayersToPlay
+    party.addTower(tower)
+    this.partiesRepository.saveParty(party)
   }
 }

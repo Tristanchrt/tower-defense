@@ -6,6 +6,7 @@ import type { Party } from '@/party/domain/Party'
 import type { PartyPlayersToPlay } from '@/party/domain/PartyPlayersToPlay'
 import type { PartyMonstersToPlay } from '@/party/domain/PartyMonsterToPlay'
 import type { RestPartyEventsRepository } from '@/party/infrastructure/secondary/RestPartyEventsRepository'
+import type { Tower } from '@/party/domain/Tower'
 
 export class PartiesApplicationService {
   private partyHandler: PartyHandler
@@ -39,5 +40,9 @@ export class PartiesApplicationService {
 
   public monsterPlay(party: PartyMonstersToPlay) {
     return this.partyHandler.monsterPlay(party)
+  }
+
+  public addTowerToParty(partyId: string, tower: Tower) {
+    return this.partyHandler.addTowerToParty(partyId, tower)
   }
 }

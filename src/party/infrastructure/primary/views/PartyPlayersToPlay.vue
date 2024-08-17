@@ -9,7 +9,7 @@
     <div class="tower-lifecycle">
       <AddTowerCard @add-tower="onAddTower" />
       <div class="break-1" />
-      <TowersList :towers="party.getTowers()" />
+      <TowersList :key="renderCount" :towers="party.getTowers()" />
     </div>
   </div>
 </template>
@@ -30,6 +30,7 @@ import TowersList from '@/party/infrastructure/primary/components/TowersList.vue
 const party = ref<PartyPlayersToPlay>()
 const playerToPlayer = ref<Player>()
 const playersPlayed = ref<Record<string, Player>>({})
+const renderCount = ref(0)
 
 const partyHandler = inject('partyApplicationService') as PartiesApplicationService
 
@@ -47,8 +48,10 @@ const createTower = (x: number, y: number, player: Player) => new Tower(x, y, 5,
 const onAddTower = ({ x, y }: Cell) => {
   playersPlayed.value[playerToPlayer.value!.getName()] = playerToPlayer.value!
   const tower = createTower(x, y, playerToPlayer!.value as Player)
-  party.value?.addTower(tower)
+
+  partyHandler.addTowerToParty((party.value as PartyPlayersToPlay).id, tower)
   playerToPlayer.value = party.value?.getLastPlayer()
+  renderCount.value += 1
   if (isAllPlayersHasPlayed()) {
     const partyMonsterToPlay = partyHandler.toMonsterToPlay(party.value as PartyPlayersToPlay)
     party.value = partyHandler.monsterPlay(partyMonsterToPlay)

@@ -112,4 +112,24 @@ describe('Party Handler', () => {
     expect(mockPartiesRepository.saveParty).toHaveBeenCalled()
     expect(mockPartiesEventRepository.saveEventsParty).toHaveBeenCalled()
   })
+
+  test('Should add tower when PartyPlayersToPlayer is playing', () => {
+
+    const party = PartyFixture.partyPlayersToPlayRoundOne()
+    const tower = PartyFixture.towerToAddPlayer1(0,0)
+
+    const mockPartiesRepository = {
+      saveParty: vi.fn(),
+      getPartyById: vi.fn().mockReturnValue(party)
+    }
+
+    const partyHandler = new PartyHandler(
+      mockPartiesRepository as unknown as PartiesRepository,
+      mockPartiesEventRepository as unknown as PartyEventsRepository
+    )
+
+    partyHandler.addTowerToParty(party.id, tower)
+
+    expect(mockPartiesRepository.saveParty).toHaveBeenCalledOnce()
+  })
 })
