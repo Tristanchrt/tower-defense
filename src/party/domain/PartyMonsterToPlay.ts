@@ -75,10 +75,6 @@ export class PartyMonstersToPlay implements PartyPlay {
     events.forEach((event) => console.log(event.action))
   }
 
-  private removeDefeatedMonsters(): void {
-    this.monsters = this.monsters.filter(monster => monster.isAlive());
-  }
-
   private waveMonster(): void {
     this.monsters.forEach((monster: Monster) => {
       const oldX = monster.x
@@ -105,14 +101,25 @@ export class PartyMonstersToPlay implements PartyPlay {
 
   private waveTowers(): void {
     this.towers.forEach((tower: Tower) => {
-      this.partyEvents.saveEvent(
-        new EventParty(
-          `Tower at (${tower.x}, ${tower.y}) ${tower.getMunitions()} waiting to shot`,
-          tower,
-          this.round
+      if(this.isMonstersAlive()) {
+        this.partyEvents.saveEvent(
+          new EventParty(
+            `Tower at (${tower.x}, ${tower.y}) ${tower.getMunitions()} waiting to shot`,
+            tower,
+            this.round
+          )
         )
-      )
-      tower.attack(this.monsters)
+        tower.attack(this.monsters)
+      }
     })
   }
+
+  private removeDefeatedMonsters(): void {
+    this.monsters = this.monsters.filter(monster => monster.isAlive());
+  }
+
+  private isMonstersAlive(): boolean {
+    return this.monsters.length > 0
+  }
+
 }

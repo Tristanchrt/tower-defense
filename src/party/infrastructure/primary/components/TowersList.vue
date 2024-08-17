@@ -6,8 +6,8 @@
         <span
           class="tower-munitions"
           :class="{
-            'has-munitions': tower.getMunitions() > 0,
-            'has-no-munitions': tower.getMunitions() === 0
+            'has-munitions': hasMunitions(tower),
+            'has-no-munitions': !hasMunitions(tower)
           }"
         >
           {{ tower.getMunitions() }}</span
@@ -27,6 +27,10 @@ defineProps({
     required: true
   }
 })
+
+const hasMunitions = (tower: Tower): boolean =>
+  tower.getMunitions() > 0
+
 </script>
 
 <style scoped>
