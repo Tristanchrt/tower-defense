@@ -70,11 +70,6 @@ export class PartyMonstersToPlay implements PartyPlay {
     return this.partyEvents.getEvents()
   }
 
-  displayEvents(): void {
-    const events = this.partyEvents.getEvents()
-    events.forEach((event) => console.log(event.action))
-  }
-
   private waveMonster(): void {
     this.monsters.forEach((monster: Monster) => {
       const oldX = monster.x

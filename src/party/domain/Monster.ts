@@ -1,7 +1,7 @@
 import type { Cell } from '@/party/domain/Cell'
 
 export class Monster implements Cell {
-  id: number
+  id: string
   x: number
   y: number
   health: number
@@ -14,7 +14,7 @@ export class Monster implements Cell {
   }
 
   moveTo(): void {
-    this.x += 1
+    this.x++
   }
 
   isAlive(): boolean {
@@ -26,7 +26,7 @@ export class Monster implements Cell {
     if (this.health < 0) this.health = 0
   }
 
-  private randomId(x: number, y: number): number {
-    return x + 3 + (y + 2) * 5
+  private randomId(x: number, y: number): string {
+    return (x + 3 + (y + 2) * 5).toString()
   }
 }

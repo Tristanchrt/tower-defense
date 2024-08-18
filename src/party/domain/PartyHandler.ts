@@ -42,7 +42,6 @@ export class PartyHandler {
 
   monsterPlay(party: PartyMonstersToPlay): PartyPlayersToPlay {
     party.wavePlay()
-    // party.displayEvents()
     this.partyEventsRepository.saveEventsParty(new EventToSave(party.id, party.getEvents()))
     const partyPlayerToPlay = party.toPlayersToPlay()
     this.partiesRepository.saveParty(partyPlayerToPlay)

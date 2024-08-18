@@ -33,7 +33,9 @@ const props = defineProps({
 const monsterPlayed = () => {
   setTimeout(() => {
     const party = partyHandler.monsterPlay(props.party as PartyMonstersToPlay)
-    const events = partyHandler.getEvents(party.id)
+    const events = partyHandler
+      .getEvents(party.id)
+      .filter((e) => e.round === props.party.getRound())
     console.log(events)
     emit('monsters-played', party)
   }, 2000)
