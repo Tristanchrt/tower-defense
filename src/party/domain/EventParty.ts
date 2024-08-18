@@ -7,7 +7,7 @@ export class EventParty {
 
   constructor(action: string, cell: Cell, round: number) {
     this.action = action
-    this.cell = cell
+    this.cell = JSON.parse(JSON.stringify(cell))
     this.round = round
   }
 }

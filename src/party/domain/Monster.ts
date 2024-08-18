@@ -13,7 +13,7 @@ export class Monster implements Cell {
     this.health = health
   }
 
-  move(): void {
+  moveTo(): void {
     this.x += 1
   }
 

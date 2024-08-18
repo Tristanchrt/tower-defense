@@ -79,7 +79,7 @@ export class PartyMonstersToPlay implements PartyPlay {
     this.monsters.forEach((monster: Monster) => {
       const oldX = monster.x
       const oldY = monster.y
-      monster.move()
+      monster.moveTo()
       this.partyEvents.saveEvent(
         new EventParty(
           `Monster ${monster.id} moved from (${oldX}, ${oldY}) to (${monster.x}, ${monster.y})`,

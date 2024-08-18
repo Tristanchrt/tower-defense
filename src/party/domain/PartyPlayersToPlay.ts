@@ -39,15 +39,15 @@ export class PartyPlayersToPlay implements PartyPlay {
     return this.players
   }
 
-  public getFirstPlayer(): Player {
+  getFirstPlayer(): Player {
     return this.getPlayers()[0]
   }
 
-  public getLastPlayer(): Player {
+  getLastPlayer(): Player {
     return this.getPlayers()[1]
   }
 
-  public toMonsterToPlay(): PartyMonstersToPlay {
+  toMonsterToPlay(): PartyMonstersToPlay {
     return new PartyMonstersToPlay(
       this.id,
       this.board,
@@ -59,11 +59,11 @@ export class PartyPlayersToPlay implements PartyPlay {
     )
   }
 
-  public getTowers(): Tower[] {
+  getTowers(): Tower[] {
     return this.towers
   }
 
-  public addTower(tower: Tower) {
+  addTower(tower: Tower) {
     if (!this.getBoard().isInMatrix(tower.x, tower.y)) {
       throw new Error('Not in the matrix area')
     }
