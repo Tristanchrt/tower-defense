@@ -28,9 +28,7 @@ defineProps({
   }
 })
 
-const hasMunitions = (tower: Tower): boolean =>
-  tower.getMunitions() > 0
-
+const hasMunitions = (tower: Tower): boolean => tower.getMunitions() > 0
 </script>
 
 <style scoped>

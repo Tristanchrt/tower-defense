@@ -10,7 +10,7 @@ import type { PartyEvents } from '@/party/domain/PartyEvents'
 
 export class PartyMonstersToPlay implements PartyPlay {
   id: string
-  wave: number = 5
+  wave: number = 10
   monsters: Monster[] = []
   constructor(
     id: string,
@@ -101,10 +101,10 @@ export class PartyMonstersToPlay implements PartyPlay {
 
   private waveTowers(): void {
     this.towers.forEach((tower: Tower) => {
-      if(this.isMonstersAlive()) {
+      if (this.isMonstersAlive()) {
         this.partyEvents.saveEvent(
           new EventParty(
-            `Tower at (${tower.x}, ${tower.y}) ${tower.getMunitions()} waiting to shot`,
+            `Tower ${tower.id} at (${tower.x}, ${tower.y}) ${tower.getMunitions()} waiting to shot`,
             tower,
             this.round
           )
@@ -115,11 +115,10 @@ export class PartyMonstersToPlay implements PartyPlay {
   }
 
   private removeDefeatedMonsters(): void {
-    this.monsters = this.monsters.filter(monster => monster.isAlive());
+    this.monsters = this.monsters.filter((monster) => monster.isAlive())
   }
 
   private isMonstersAlive(): boolean {
     return this.monsters.length > 0
   }
-
 }

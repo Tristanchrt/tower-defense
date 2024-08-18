@@ -8,7 +8,7 @@ describe('Party', () => {
     expect(partyPlayersToPlay.getBoard()).toStrictEqual(PartyFixture.board())
   })
 
-  test('Should PartyCreated change to PartyPlayersToPlay.vue', () => {
+  test('Should PartyCreated change to PartyPlayersToPlayView.vue', () => {
     const partyCreated = PartyFixture.partyCreated()
     const partyPlayersToPlay = partyCreated.toPlayersToPlay()
     expect(partyPlayersToPlay).toStrictEqual(PartyFixture.partyPlayersToPlayRoundOne())

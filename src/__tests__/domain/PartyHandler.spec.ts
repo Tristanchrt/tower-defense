@@ -114,9 +114,8 @@ describe('Party Handler', () => {
   })
 
   test('Should add tower when PartyPlayersToPlayer is playing', () => {
-
     const party = PartyFixture.partyPlayersToPlayRoundOne()
-    const tower = PartyFixture.towerToAddPlayer1(0,0)
+    const tower = PartyFixture.towerToAddPlayer1(0, 0)
 
     const mockPartiesRepository = {
       saveParty: vi.fn(),

@@ -7,10 +7,10 @@ export class BoardDisplay {
   constructor(private board: Board) {}
 
   async update(event: EventParty): Promise<void> {
-    const { cell} = event;
+    const { cell } = event
 
     if (cell instanceof Monster || cell instanceof Tower) {
-      this.board.display([cell]);
+      this.board.display([cell])
     }
   }
 }

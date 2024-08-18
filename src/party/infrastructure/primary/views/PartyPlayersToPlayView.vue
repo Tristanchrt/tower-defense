@@ -15,8 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import { inject, onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { inject, type PropType, ref } from 'vue'
 import { PartiesApplicationService } from '@/party/application/PartiesApplicationService'
 import BoardCard from '@/party/infrastructure/primary/components/BoardCard.vue'
 import PlayersList from '@/party/infrastructure/primary/components/PlayersList.vue'
@@ -27,42 +26,46 @@ import { Player } from '@/party/domain/Player'
 import type { Cell } from '@/party/domain/Cell'
 import TowersList from '@/party/infrastructure/primary/components/TowersList.vue'
 
-const party = ref<PartyPlayersToPlay>()
 const playerToPlayer = ref<Player>()
 const playersPlayed = ref<Record<string, Player>>({})
 const renderCount = ref(0)
 
+const emit = defineEmits(['players-played'])
+
+const props = defineProps({
+  party: {
+    type: Object as PropType<PartyPlayersToPlay>,
+    required: true
+  }
+})
+
 const partyHandler = inject('partyApplicationService') as PartiesApplicationService
 
-const fetchParty = () => {
-  const route = useRoute()
-  party.value = partyHandler.getPartyById(route.params.id as string) as PartyPlayersToPlay
-  playerToPlayer.value = party.value!.getFirstPlayer()
+const getPlayerToPlay = () => {
+  playerToPlayer.value = props.party.getFirstPlayer()
 }
 
 const isAllPlayersHasPlayed = (): boolean =>
-  Object.keys(playersPlayed.value).length === party.value?.getPlayers().length
+  Object.keys(playersPlayed.value).length === props.party.getPlayers().length
 
-const createTower = (x: number, y: number, player: Player) => new Tower(x, y, 5, player)
+const createTower = (x: number, y: number, player: Player) =>
+  new Tower(crypto.randomUUID(), x, y, 5, player)
 
 const onAddTower = ({ x, y }: Cell) => {
   playersPlayed.value[playerToPlayer.value!.getName()] = playerToPlayer.value!
   const tower = createTower(x, y, playerToPlayer!.value as Player)
 
-  partyHandler.addTowerToParty((party.value as PartyPlayersToPlay).id, tower)
-  playerToPlayer.value = party.value?.getLastPlayer()
+  partyHandler.addTowerToParty(props.party.id, tower)
+  playerToPlayer.value = props.party.getLastPlayer()
   renderCount.value += 1
+
   if (isAllPlayersHasPlayed()) {
-    const partyMonsterToPlay = partyHandler.toMonsterToPlay(party.value as PartyPlayersToPlay)
-    party.value = partyHandler.monsterPlay(partyMonsterToPlay)
-    playerToPlayer.value = party.value?.getFirstPlayer()
+    emit('players-played')
     playersPlayed.value = {}
   }
 }
 
-onMounted(() => {
-  void fetchParty()
-})
+void getPlayerToPlay()
 </script>
 
 <style scoped>

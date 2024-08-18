@@ -1,6 +1,6 @@
 import PartyView from '@/party/infrastructure/primary/views/PartyView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import PartyPlayersToPlay from '@/party/infrastructure/primary/views/PartyPlayersToPlay.vue'
+import PartyPlayingView from '@/party/infrastructure/primary/views/PartyPlayingView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,7 +13,7 @@ const router = createRouter({
     {
       path: '/parties/:id',
       name: 'party',
-      component: PartyPlayersToPlay
+      component: PartyPlayingView
     }
   ]
 })

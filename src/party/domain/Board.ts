@@ -29,7 +29,7 @@ export class Board {
   }
 
   isInMatrix(x: number, y: number): boolean {
-    return x >= 0 && y >= 0 && x < this.width && y < this.height;
+    return x >= 0 && y >= 0 && x < this.width && y < this.height
   }
 
   getMatrix(): Cell[][] {

@@ -18,16 +18,15 @@ export class Monster implements Cell {
   }
 
   isAlive(): boolean {
-    return this.health !== 0;
+    return this.health !== 0
   }
 
   takeDommage(): void {
     this.health -= 1
-    if(this.health < 0) this.health = 0
+    if (this.health < 0) this.health = 0
   }
 
   private randomId(x: number, y: number): number {
     return x + 3 + (y + 2) * 5
   }
-
 }

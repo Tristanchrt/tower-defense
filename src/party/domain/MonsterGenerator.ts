@@ -8,6 +8,6 @@ export class MonsterGenerator {
 
   generate(): Monster {
     const y = this.randomFunc(this.yMax)
-    return new Monster(0, y)
+    return new Monster(0, y, 1)
   }
 }

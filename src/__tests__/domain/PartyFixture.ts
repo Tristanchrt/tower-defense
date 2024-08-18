@@ -78,7 +78,10 @@ export class PartyFixture {
       this.idParty(),
       PartyFixture.board(),
       [this.player1(), this.player2()],
-      [new Tower(0, 0, 0, this.player1()), new Tower(3, 0, 2, this.player2())],
+      [
+        new Tower(this.towerUUIDOne(), 0, 0, 0, this.player1()),
+        new Tower(this.towerUUIDTwo(), 3, 0, 2, this.player2())
+      ],
       2
     )
   }
@@ -96,11 +99,11 @@ export class PartyFixture {
   }
 
   public static towerToAddPlayer1(x: number, y: number): Tower {
-    return new Tower(x, y, 5, this.player1())
+    return new Tower(this.towerUUIDOne(), x, y, 5, this.player1())
   }
 
   public static towerToAddPlayer2(x: number, y: number): Tower {
-    return new Tower(x, y, 5, this.player2())
+    return new Tower(this.towerUUIDTwo(), x, y, 5, this.player2())
   }
 
   public static partyToCreate() {
@@ -113,5 +116,13 @@ export class PartyFixture {
 
   public static monsterGenerator() {
     return new MonsterGenerator(10, (max) => 1)
+  }
+
+  public static towerUUIDOne() {
+    return 'ID1'
+  }
+
+  public static towerUUIDTwo() {
+    return 'ID1'
   }
 }
