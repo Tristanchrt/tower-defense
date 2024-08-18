@@ -15,12 +15,15 @@
 <script setup lang="ts">
 import TowersList from '@/party/infrastructure/primary/components/TowersList.vue'
 import BoardCard from '@/party/infrastructure/primary/components/BoardCard.vue'
-import type { PropType } from 'vue'
+import { inject, type PropType } from 'vue'
 import type { PartyMonstersToPlay } from '@/party/domain/PartyMonsterToPlay'
+import { PartiesApplicationService } from '@/party/application/PartiesApplicationService'
 
 const emit = defineEmits(['monsters-played'])
 
-defineProps({
+const partyHandler = inject('partyApplicationService') as PartiesApplicationService
+
+const props = defineProps({
   party: {
     type: Object as PropType<PartyMonstersToPlay>,
     required: true
@@ -29,7 +32,8 @@ defineProps({
 
 const monsterPlayed = () => {
   setTimeout(() => {
-    emit('monsters-played')
+    const party = partyHandler.monsterPlay(props.party as PartyMonstersToPlay)
+    emit('monsters-played', party)
   }, 2000)
 }
 

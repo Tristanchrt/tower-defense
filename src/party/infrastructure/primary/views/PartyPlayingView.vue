@@ -28,8 +28,9 @@ const partyHandler = inject('partyApplicationService') as PartiesApplicationServ
 
 const party = ref<Party>()
 
+const route = useRoute()
+
 const fetchParty = () => {
-  const route = useRoute()
   party.value = partyHandler.getPartyById(route.params.id as string)
 }
 
@@ -46,8 +47,8 @@ const playersPlayed = () => {
   party.value = partyHandler.toMonsterToPlay(party.value as PartyPlayersToPlay)
 }
 
-const monstersPlayed = () => {
-  party.value = partyHandler.monsterPlay(party.value as PartyMonstersToPlay)
+const monstersPlayed = (partyMonsterPlayed: Party) => {
+  party.value = partyMonsterPlayed
 }
 
 void fetchParty()
