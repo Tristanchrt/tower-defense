@@ -6,6 +6,7 @@ import type { PartyPlayersToPlay } from '@/party/domain/PartyPlayersToPlay'
 import type { PartyMonstersToPlay } from '@/party/domain/PartyMonsterToPlay'
 import { EventToSave, type PartyEventsRepository } from '@/party/domain/PartyEventsRepository'
 import type { Tower } from '@/party/domain/Tower'
+import type { EventParty } from '@/party/domain/EventParty'
 
 export class PartyHandler {
   constructor(
@@ -52,5 +53,9 @@ export class PartyHandler {
     const party = this.getPartyById(partyId) as PartyPlayersToPlay
     party.addTower(tower)
     this.partiesRepository.saveParty(party)
+  }
+
+  getEvents(partyId: string): EventParty[] {
+    return this.partyEventsRepository.getEvents(partyId)
   }
 }

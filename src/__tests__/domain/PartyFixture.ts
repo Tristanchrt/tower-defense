@@ -7,6 +7,7 @@ import { Tower } from '@/party/domain/Tower'
 import { PartyToCreate } from '@/party/domain/PartyToCreate'
 import { PartyEvents } from '@/party/domain/PartyEvents'
 import { MonsterGenerator } from '@/party/domain/MonsterGenerator'
+import { EventParty } from '@/party/domain/EventParty'
 
 export class PartyFixture {
   static board(): Board {
@@ -112,6 +113,10 @@ export class PartyFixture {
 
   public static partyEvents() {
     return new PartyEvents()
+  }
+
+  public static eventsParty() {
+    return new EventParty('Tower shot', PartyFixture.towerToAddPlayer1(0, 0), 1)
   }
 
   public static monsterGenerator() {

@@ -7,7 +7,8 @@ import type { PartyEventsRepository } from '@/party/domain/PartyEventsRepository
 
 describe('Party Handler', () => {
   const mockPartiesEventRepository = {
-    saveEventsParty: vi.fn()
+    saveEventsParty: vi.fn(),
+    getEvents: vi.fn().mockReturnValue([PartyFixture.eventsParty()])
   }
 
   test('Should create party when calling creator', () => {
@@ -130,5 +131,20 @@ describe('Party Handler', () => {
     partyHandler.addTowerToParty(party.id, tower)
 
     expect(mockPartiesRepository.saveParty).toHaveBeenCalledOnce()
+  })
+
+  test('Should get events when RestPartyEventsRepository is called', () => {
+    const party = PartyFixture.partyPlayersToPlayRoundOne()
+
+    const mockPartiesRepository = {}
+
+    const partyHandler = new PartyHandler(
+      mockPartiesRepository as unknown as PartiesRepository,
+      mockPartiesEventRepository as unknown as PartyEventsRepository
+    )
+
+    const eventsParty = partyHandler.getEvents(party.id)
+
+    expect(eventsParty).toStrictEqual([PartyFixture.eventsParty()])
   })
 })
