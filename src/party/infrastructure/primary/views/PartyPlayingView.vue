@@ -1,11 +1,11 @@
 <template>
   <div class="party-playing-view">
     <PartyMonstersPlaying
+      @monsters-played="monstersPlayed"
       :party="party as PartyMonstersToPlay"
       v-if="partyState(party as Party) === PartyStatus.MONSTERS_PLAYING"
     />
     <PartyPlayersToPlayView
-      :key="renderUpdate"
       @players-played="playersPlayed"
       :party="party as PartyPlayersToPlay"
       v-if="partyState(party as Party) === PartyStatus.PLAYERS_TO_PLAY"
@@ -27,7 +27,6 @@ import PartyPlayersToPlayView from '@/party/infrastructure/primary/views/PartyPl
 const partyHandler = inject('partyApplicationService') as PartiesApplicationService
 
 const party = ref<Party>()
-const renderUpdate = ref(0)
 
 const fetchParty = () => {
   const route = useRoute()
@@ -44,9 +43,11 @@ const partyState = (party: Party) => {
 }
 
 const playersPlayed = () => {
-  const partyMonsterToPlay = partyHandler.toMonsterToPlay(party.value as PartyPlayersToPlay)
-  party.value = partyHandler.monsterPlay(partyMonsterToPlay)
-  renderUpdate.value++
+  party.value = partyHandler.toMonsterToPlay(party.value as PartyPlayersToPlay)
+}
+
+const monstersPlayed = () => {
+  party.value = partyHandler.monsterPlay(party.value as PartyMonstersToPlay)
 }
 
 void fetchParty()
