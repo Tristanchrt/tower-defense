@@ -7,7 +7,7 @@
       <BoardCard :board="board as Board" v-if="board" />
     </div>
     <div class="tower-lifecycle">
-      <TowersList :towers="party.getTowers()" />
+      <TowersList :towers="towers" v-if="towers" />
     </div>
   </div>
 </template>
@@ -19,6 +19,7 @@ import { inject, type PropType, ref } from 'vue'
 import type { PartyMonstersToPlay } from '@/party/domain/PartyMonsterToPlay'
 import { PartiesApplicationService } from '@/party/application/PartiesApplicationService'
 import { Board } from '@/party/domain/Board'
+import type { Tower } from '@/party/domain/Tower'
 
 const emit = defineEmits(['monsters-played'])
 
@@ -32,8 +33,10 @@ const props = defineProps({
 })
 
 const board = ref<Board>()
+const towers = ref<Tower[]>()
 
 const initBoard = () => board.value = props.party?.display()
+const setTowers = () => towers.value = board.value?.getTowers()
 
 const monsterPlayed = async () => {
   setTimeout(async () => {
@@ -44,8 +47,9 @@ const monsterPlayed = async () => {
       .filter((e) => e.round === props.party.getRound());
 
     for (const event of events) {
-      await new Promise((resolve) => setTimeout(resolve, 300));
+      await new Promise((resolve) => setTimeout(resolve, 200));
       board.value?.updateCell(event.cell)
+      void setTowers()
       console.log(event, board.value);
     }
 
@@ -54,6 +58,7 @@ const monsterPlayed = async () => {
 }
 
 void initBoard()
+void setTowers()
 void monsterPlayed()
 </script>
 

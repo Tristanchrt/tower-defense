@@ -1,5 +1,6 @@
 // https://on.cypress.io/api
 
+// TODO refacto all the tests
 describe('Party management', () => {
 
   const createParty = () => cy.contains('button', 'Create party')

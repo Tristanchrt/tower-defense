@@ -1,7 +1,9 @@
 import type { Cell } from './Cell'
 import { Floor } from './Floor'
+import { Tower } from '@/party/domain/Tower'
 
 // TODO Change board to only display it
+// TODO Change reverse X and Y
 export class Board {
   matrix: Cell[][]
   pieces: Record<string, Cell>
@@ -50,6 +52,14 @@ export class Board {
 
   getMatrix(): Cell[][] {
     return this.matrix
+  }
+
+  getPieces(): Cell[] {
+    return Object.values(this.pieces)
+  }
+
+  getTowers(): Tower[] {
+    return (this.getPieces().filter((piece: Cell) => piece instanceof Tower) as Tower[])
   }
 
   private initMatrix(width: number, height: number): Cell[][] {
