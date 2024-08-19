@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="board">
-      <div class="row" :key="row" v-for="row in props.board.getMatrix()">
-        <div class="height" :key="cell" v-for="cell in row">
+      <div class="row" :key="`row-${rowIndex}`" v-for="(row, rowIndex) in props.board.getMatrix()">
+        <div class="height" :key="`cell-${cell.id}`" v-for="cell in row">
           <span class="cell tooltip">
             {{ cellType(cell) }}
           </span>
@@ -17,6 +17,7 @@ import { Board } from '@/party/domain/Board'
 import { Tower } from '@/party/domain/Tower'
 import type { Cell } from '@/party/domain/Cell'
 import type { PropType } from 'vue'
+import { Monster } from '@/party/domain/Monster'
 
 const props = defineProps({
   board: {
@@ -28,6 +29,9 @@ const props = defineProps({
 const cellType = (cell: Cell) => {
   if (cell instanceof Tower) {
     return 'T'
+  }
+  if (cell instanceof Monster) {
+    return "M"
   }
   return '.'
 }

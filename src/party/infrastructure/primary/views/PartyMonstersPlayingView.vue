@@ -4,7 +4,7 @@
       <h1>Party #{{ party.id }}</h1>
       <h3>Round #{{ party.getRound() }}</h3>
       <h3>Monsters playing...</h3>
-      <BoardCard :board="party.display()" />
+      <BoardCard :board="board as Board" v-if="board" />
     </div>
     <div class="tower-lifecycle">
       <TowersList :towers="party.getTowers()" />
@@ -15,9 +15,10 @@
 <script setup lang="ts">
 import TowersList from '@/party/infrastructure/primary/components/TowersList.vue'
 import BoardCard from '@/party/infrastructure/primary/components/BoardCard.vue'
-import { inject, type PropType } from 'vue'
+import { inject, type PropType, ref } from 'vue'
 import type { PartyMonstersToPlay } from '@/party/domain/PartyMonsterToPlay'
 import { PartiesApplicationService } from '@/party/application/PartiesApplicationService'
+import { Board } from '@/party/domain/Board'
 
 const emit = defineEmits(['monsters-played'])
 
@@ -30,17 +31,29 @@ const props = defineProps({
   }
 })
 
-const monsterPlayed = () => {
-  setTimeout(() => {
-    const party = partyHandler.monsterPlay(props.party as PartyMonstersToPlay)
+const board = ref<Board>()
+
+const initBoard = () => board.value = props.party?.display()
+
+const monsterPlayed = async () => {
+  setTimeout(async () => {
+    const party = partyHandler.monsterPlay(props.party as PartyMonstersToPlay);
+
     const events = partyHandler
       .getEvents(party.id)
-      .filter((e) => e.round === props.party.getRound())
-    console.log(events)
-    emit('monsters-played', party)
-  }, 2000)
+      .filter((e) => e.round === props.party.getRound());
+
+    for (const event of events) {
+      await new Promise((resolve) => setTimeout(resolve, 300));
+      board.value?.updateCell(event.cell)
+      console.log(event, board.value);
+    }
+
+    emit('monsters-played', party);
+  }, 500)
 }
 
+void initBoard()
 void monsterPlayed()
 </script>
 

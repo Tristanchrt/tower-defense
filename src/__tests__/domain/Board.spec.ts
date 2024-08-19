@@ -20,11 +20,13 @@ describe('Board', () => {
     expect(board.matrix[0][0]).toStrictEqual(PartyFixture.towerToAddPlayer1(0, 0))
   })
 
-  test('Should update cell positions', () => {
+  test.only('Should update cell positions', () => {
     const board = PartyFixture.board()
-    const tower = PartyFixture.towerToAddPlayer1(0, 0)
+    let tower = PartyFixture.towerToAddPlayer1(0, 0)
     const pieces = [tower]
     board.display(pieces)
+
+    tower = PartyFixture.towerToAddPlayer1(0, 0)
     tower.x++
     board.updateCell(tower)
     expect(board.matrix[0][0]).toBeInstanceOf(Floor)

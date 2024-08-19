@@ -1,9 +1,10 @@
 import type { Cell } from './Cell'
 import { Floor } from './Floor'
 
+// TODO Change board to only display it
 export class Board {
   matrix: Cell[][]
-  pieces: Cell[]
+  pieces: Record<string, Cell>
 
   constructor(
     private readonly width: number,
@@ -11,19 +12,26 @@ export class Board {
   ) {
     this.width = width
     this.height = height
-    this.pieces = []
+    this.pieces = {}
     this.matrix = this.initMatrix(width, height)
   }
 
   updateCell(cell: Cell) {
-    this.pieces = this.pieces.filter((piece) => piece.id != cell.id)
-    this.pieces.push(cell)
-    this.display(this.pieces)
+    const existingCell = this.pieces[cell.id];
+
+    if (existingCell) {
+      this.matrix[existingCell.x][existingCell.y] = new Floor(existingCell.x, existingCell.y);
+    }
+
+    if(this.isInMatrix(cell.x, cell.y)) {
+      this.pieces[cell.id] = cell;
+      this.matrix[cell.x][cell.y] = cell;
+    }
   }
 
   display(pieces: Cell[]): Board {
     for (const piece of pieces) {
-      this.matrix[piece.x][piece.y] = piece
+      this.updateCell(piece)
     }
     return this
   }
@@ -48,7 +56,7 @@ export class Board {
     return Array.from({ length: width }, (_, i) =>
       Array.from({ length: height }, (_, j) => {
         const floorCell = new Floor(i, j)
-        this.pieces.push(floorCell)
+        this.pieces[floorCell.id] = floorCell
         return floorCell
       })
     )

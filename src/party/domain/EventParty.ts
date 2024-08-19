@@ -1,13 +1,17 @@
-import type { Cell } from '@/party/domain/Cell'
+import type { Monster } from '@/party/domain/Monster'
+import type { Tower } from '@/party/domain/Tower'
 
 export class EventParty {
   action: string
-  cell: Cell
+  cell: Monster | Tower
   round: number
 
-  constructor(action: string, cell: Cell, round: number) {
+  constructor(action: string, cell: Monster | Tower, round: number) {
     this.action = action
-    this.cell = JSON.parse(JSON.stringify(cell))
+    this.cell = Object.assign(
+      Object.create(Object.getPrototypeOf(cell)),
+      cell
+    );
     this.round = round
   }
 }

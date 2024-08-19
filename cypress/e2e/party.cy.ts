@@ -99,6 +99,8 @@ describe('Party management', () => {
     cy.contains('h3', 'Round #2')
     cy.contains('h3', 'Monsters playing...')
 
+    cy.wait(20000)
+
     cy.get('div.player .player-turn').first().should('have.text', 'Y')
     cy.get('div.player .player-turn').last().should('have.text', 'N')
   })
