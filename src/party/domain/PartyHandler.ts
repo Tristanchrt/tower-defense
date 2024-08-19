@@ -8,6 +8,7 @@ import { EventToSave, type PartyEventsRepository } from '@/party/domain/PartyEve
 import type { Tower } from '@/party/domain/Tower'
 import type { EventParty } from '@/party/domain/EventParty'
 
+// TODO split class
 export class PartyHandler {
   constructor(
     private partiesRepository: PartiesRepository,

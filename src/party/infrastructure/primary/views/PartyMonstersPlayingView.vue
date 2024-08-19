@@ -35,25 +35,25 @@ const props = defineProps({
 const board = ref<Board>()
 const towers = ref<Tower[]>()
 
-const initBoard = () => board.value = props.party?.display()
-const setTowers = () => towers.value = board.value?.getTowers()
+const initBoard = () => (board.value = props.party?.display())
+const setTowers = () => (towers.value = board.value?.getTowers())
 
 const monsterPlayed = async () => {
   setTimeout(async () => {
-    const party = partyHandler.monsterPlay(props.party as PartyMonstersToPlay);
+    const party = partyHandler.monsterPlay(props.party as PartyMonstersToPlay)
 
     const events = partyHandler
       .getEvents(party.id)
-      .filter((e) => e.round === props.party.getRound());
+      .filter((e) => e.round === props.party.getRound())
 
     for (const event of events) {
-      await new Promise((resolve) => setTimeout(resolve, 200));
+      await new Promise((resolve) => setTimeout(resolve, 200))
       board.value?.updateCell(event.cell)
       void setTowers()
-      console.log(event, board.value);
+      console.log(event, board.value)
     }
 
-    emit('monsters-played', party);
+    emit('monsters-played', party)
   }, 500)
 }
 

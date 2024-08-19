@@ -31,7 +31,7 @@ const cellType = (cell: Cell) => {
     return 'T'
   }
   if (cell instanceof Monster) {
-    return "M"
+    return 'M'
   }
   return '.'
 }

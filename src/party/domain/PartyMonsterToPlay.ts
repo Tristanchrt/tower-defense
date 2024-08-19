@@ -62,6 +62,7 @@ export class PartyMonstersToPlay implements PartyPlay {
     for (let pas = 0; pas < this.wave; pas++) {
       this.waveMonster()
       this.waveTowers()
+      // TODO add events remove defeated monsters
       this.removeDefeatedMonsters()
     }
   }

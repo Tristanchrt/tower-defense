@@ -1,6 +1,6 @@
 // https://on.cypress.io/api
 
-// TODO refacto all the tests
+// TODO refactor by splitting
 describe('Party management', () => {
 
   const createParty = () => cy.contains('button', 'Create party')

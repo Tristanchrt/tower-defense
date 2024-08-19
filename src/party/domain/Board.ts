@@ -19,15 +19,15 @@ export class Board {
   }
 
   updateCell(cell: Cell) {
-    const existingCell = this.pieces[cell.id];
+    const existingCell = this.pieces[cell.id]
 
     if (existingCell) {
-      this.matrix[existingCell.x][existingCell.y] = new Floor(existingCell.x, existingCell.y);
+      this.matrix[existingCell.x][existingCell.y] = new Floor(existingCell.x, existingCell.y)
     }
 
-    if(this.isInMatrix(cell.x, cell.y)) {
-      this.pieces[cell.id] = cell;
-      this.matrix[cell.x][cell.y] = cell;
+    if (this.isInMatrix(cell.x, cell.y)) {
+      this.pieces[cell.id] = cell
+      this.matrix[cell.x][cell.y] = cell
     }
   }
 
@@ -59,7 +59,7 @@ export class Board {
   }
 
   getTowers(): Tower[] {
-    return (this.getPieces().filter((piece: Cell) => piece instanceof Tower) as Tower[])
+    return this.getPieces().filter((piece: Cell) => piece instanceof Tower) as Tower[]
   }
 
   private initMatrix(width: number, height: number): Cell[][] {
